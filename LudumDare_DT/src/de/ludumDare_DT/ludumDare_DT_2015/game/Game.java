@@ -10,6 +10,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2D;
 
+import de.ludumDare_DT.ludumDare_DT_2015.game.system.InputSystem;
+import de.ludumDare_DT.ludumDare_DT_2015.game.util.GameConstants;
+
 public class Game implements ApplicationListener{
 	
 	
@@ -22,6 +25,7 @@ public class Game implements ApplicationListener{
 	private Texture testTex;
 	private OrthographicCamera ortho;
 
+	private final InputSystem inputSystem = new InputSystem(10);
 
 	@Override
 	public void create() {
@@ -30,6 +34,8 @@ public class Game implements ApplicationListener{
 		
 		// initialise Box2D
 		Box2D.init();
+		
+		this.addSystems();
 		
 		/**
 		 * Test n stuff
@@ -43,6 +49,10 @@ public class Game implements ApplicationListener{
 		
 		ortho.setToOrtho(false, Gdx.graphics.getWidth()/2 + 300, Gdx.graphics.getHeight()/2);
 		
+	}
+	
+	private void addSystems() {
+		engine.addSystem(inputSystem);
 	}
 
 	@Override

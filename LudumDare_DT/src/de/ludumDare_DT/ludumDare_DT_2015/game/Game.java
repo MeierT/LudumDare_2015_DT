@@ -15,6 +15,7 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.system.InputSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.PhysicsSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.UpdatePositionSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.GameConstants;
+import de.ludumDare_DT.ludumDare_DT_2015.input.InputManager;
 
 public class Game implements ApplicationListener{
 	
@@ -30,6 +31,9 @@ public class Game implements ApplicationListener{
 
 	private final InputSystem inputSystem = new InputSystem(10);
 
+	/** Manager */
+	public InputManager inputManager;
+	
 	@Override
 	public void create() {
 		// creating the Ashley engine
@@ -38,10 +42,13 @@ public class Game implements ApplicationListener{
 		// initialise Box2D
 		Box2D.init();
 		
-
+		/* Manager */
+		inputManager = new InputManager();
+		
+		/* Systems */
 		this.addSystems();
 		
-		/**
+		/*
 		 * Test n stuff
 		 */
 		testBatch = new SpriteBatch();

@@ -5,10 +5,22 @@ import org.lwjgl.opengl.GL11;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2D;
 
 public class Game implements ApplicationListener{
+	
+	
 	private PooledEngine engine;
+	
+	/**
+	 * Testing!
+	 */
+	private SpriteBatch testBatch;
+	private Texture testTex;
+	private OrthographicCamera ortho;
 
 
 	@Override
@@ -18,6 +30,18 @@ public class Game implements ApplicationListener{
 		
 		// initialise Box2D
 		Box2D.init();
+		
+		/**
+		 * Test n stuff
+		 */
+		testBatch = new SpriteBatch();
+		testTex = new Texture("resources/images/test.jpg");
+		
+		ortho = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		
+		testBatch.setProjectionMatrix(ortho.combined);
+		
+		ortho.setToOrtho(false, Gdx.graphics.getWidth()/2 + 300, Gdx.graphics.getHeight()/2);
 		
 	}
 
@@ -30,8 +54,13 @@ public class Game implements ApplicationListener{
 	@Override
 	public void render() {
 		engine.update(Gdx.graphics.getDeltaTime());
-		
+		ortho.update();
+		testBatch.setProjectionMatrix(ortho.combined);
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+		
+		testBatch.begin();
+		testBatch.draw(testTex, 0, 0);
+		testBatch.end();
 		
 	}
 

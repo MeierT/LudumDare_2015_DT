@@ -3,7 +3,7 @@ package de.ludumDare_DT.ludumDare_DT_2015;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
-import de.ludumDare_DT.ludumDare_DT_2015.Game;
+import de.ludumDare_DT.ludumDare_DT_2015.game.Game;
 
 public class Main {
 	public static void main(String[] args) {

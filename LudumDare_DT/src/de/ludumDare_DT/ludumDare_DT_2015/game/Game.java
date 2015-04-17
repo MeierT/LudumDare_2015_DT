@@ -1,12 +1,23 @@
-package de.ludumDare_DT.ludumDare_DT_2015.Game;
+package de.ludumDare_DT.ludumDare_DT_2015.game;
 
+import org.lwjgl.opengl.GL11;
+
+import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.physics.box2d.Box2D;
 
 public class Game implements ApplicationListener{
+	private PooledEngine engine;
+
 
 	@Override
 	public void create() {
-		// TODO Auto-generated method stub
+		// creating the Ashley engine
+		engine = new PooledEngine();
+		
+		// initialise Box2D
+		Box2D.init();
 		
 	}
 
@@ -18,7 +29,9 @@ public class Game implements ApplicationListener{
 
 	@Override
 	public void render() {
-		// TODO Auto-generated method stub
+		engine.update(Gdx.graphics.getDeltaTime());
+		
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 		
 	}
 

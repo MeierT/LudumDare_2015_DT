@@ -1,5 +1,14 @@
 package de.ludumDare_DT.ludumDare_DT_2015.game.components;
 
-public class InputComponent {
+import com.badlogic.ashley.core.Component;
+import com.badlogic.gdx.utils.Pool;
+
+public class InputComponent extends Component implements Pool.Poolable {
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

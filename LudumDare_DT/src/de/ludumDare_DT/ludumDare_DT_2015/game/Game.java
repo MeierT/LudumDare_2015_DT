@@ -5,12 +5,12 @@ import org.lwjgl.opengl.GL11;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 
+import de.ludumDare_DT.ludumDare_DT_2015.game.system.CameraSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.InputSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.PhysicsSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.UpdatePositionSystem;
@@ -27,7 +27,6 @@ public class Game implements ApplicationListener{
 	 */
 	private SpriteBatch testBatch;
 	private Texture testTex;
-	private OrthographicCamera ortho;
 
 	private final InputSystem inputSystem = new InputSystem(10);
 
@@ -53,13 +52,8 @@ public class Game implements ApplicationListener{
 		 */
 		testBatch = new SpriteBatch();
 		testTex = new Texture("resources/images/test.jpg");
-		
-		ortho = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		
-		testBatch.setProjectionMatrix(ortho.combined);
-		
-		ortho.setToOrtho(false, Gdx.graphics.getWidth()/2 + 300, Gdx.graphics.getHeight()/2);
-		
+				
+		testBatch.setProjectionMatrix(engine.getSystem(CameraSystem.class).getCombinedMatrix());		
 	}
 	
 	private void addSystems() {
@@ -73,11 +67,13 @@ public class Game implements ApplicationListener{
 
 		engine.addSystem(physicsSystem);
 		physicsSystem.setGravity(new Vector2(0, 0)); // erstmal keine gravity,
-														// brauchen wir in
-														// unserem Spiel nicht
+													
 		// add UpdatePositionSystem
 		engine.addSystem(new UpdatePositionSystem(
 				GameConstants.PHYSICS_PRIORITY + 2));
+		
+		// CameraSystem
+		engine.addSystem(new CameraSystem(GameConstants.CAMERA_PRIORITY));
 	}
 
 	@Override
@@ -89,14 +85,12 @@ public class Game implements ApplicationListener{
 	@Override
 	public void render() {
 		engine.update(Gdx.graphics.getDeltaTime());
-		ortho.update();
-		testBatch.setProjectionMatrix(ortho.combined);
+		testBatch.setProjectionMatrix(engine.getSystem(CameraSystem.class).getCombinedMatrix());
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 		
 		testBatch.begin();
 		testBatch.draw(testTex, 0, 0);
 		testBatch.end();
-		
 	}
 
 	@Override

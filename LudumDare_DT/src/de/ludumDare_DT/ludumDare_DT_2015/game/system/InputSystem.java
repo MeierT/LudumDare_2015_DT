@@ -15,7 +15,6 @@ public class InputSystem extends IteratingSystem {
 	@Override
 	protected void processEntity(Entity entity, float deltaTime) {
 		// TODO Auto-generated method stub
-		System.out.println("test");
 		
 	}
 

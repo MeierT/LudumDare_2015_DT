@@ -34,7 +34,7 @@ public class Game implements ApplicationListener{
 
 	/** Manager */
 	public InputManager inputManager;
-	public SoundManager soundManager;
+	public static SoundManager soundManager;
 	
 	@Override
 	public void create() {

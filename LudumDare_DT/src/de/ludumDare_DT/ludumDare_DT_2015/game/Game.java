@@ -8,9 +8,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.InputSystem;
+import de.ludumDare_DT.ludumDare_DT_2015.game.system.PhysicsSystem;
+import de.ludumDare_DT.ludumDare_DT_2015.game.system.UpdatePositionSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.GameConstants;
 
 public class Game implements ApplicationListener{
@@ -35,6 +38,7 @@ public class Game implements ApplicationListener{
 		// initialise Box2D
 		Box2D.init();
 		
+
 		this.addSystems();
 		
 		/**
@@ -52,7 +56,21 @@ public class Game implements ApplicationListener{
 	}
 	
 	private void addSystems() {
-		engine.addSystem(inputSystem);
+		engine.addSystem(inputSystem);		
+
+		// add PhysicSystem
+		PhysicsSystem physicsSystem = new PhysicsSystem(
+				GameConstants.BOX2D_VELOCITY_ITERATIONS,
+				GameConstants.BOX2D_POSITIONS_ITERATIONS,
+				GameConstants.BOX2D_SCALE, GameConstants.PHYSICS_PRIORITY);
+
+		engine.addSystem(physicsSystem);
+		physicsSystem.setGravity(new Vector2(0, 0)); // erstmal keine gravity,
+														// brauchen wir in
+														// unserem Spiel nicht
+		// add UpdatePositionSystem
+		engine.addSystem(new UpdatePositionSystem(
+				GameConstants.PHYSICS_PRIORITY + 2));
 	}
 
 	@Override

@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 
+import de.ludumDare_DT.ludumDare_DT_2015.audio.MusicManager;
 import de.ludumDare_DT.ludumDare_DT_2015.audio.SoundManager;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.InputSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.PhysicsSystem;
@@ -35,6 +36,7 @@ public class Game implements ApplicationListener{
 	/** Manager */
 	public InputManager inputManager;
 	public static SoundManager soundManager;
+	public static MusicManager musicManager;
 	
 	@Override
 	public void create() {
@@ -47,6 +49,7 @@ public class Game implements ApplicationListener{
 		/* Manager */
 		inputManager = new InputManager();
 		soundManager = new SoundManager();
+		musicManager = new MusicManager();
 		
 		/* Systems */
 		this.addSystems();
@@ -91,9 +94,13 @@ public class Game implements ApplicationListener{
 
 	@Override
 	public void render() {
-		engine.update(Gdx.graphics.getDeltaTime());
+		float deltaTime = Gdx.graphics.getDeltaTime();
+		engine.update(deltaTime);
 		ortho.update();
+		
 		testBatch.setProjectionMatrix(ortho.combined);
+		
+		
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 		
 		testBatch.begin();

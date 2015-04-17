@@ -26,11 +26,7 @@ public class KeyboardMouseProcessor implements InputProcessor {
 	}
 
 	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {		
-		/* test start */
-		Game.soundManager.play("resources/sound/testSound.ogg");
-		/* test end */
-		
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {			
 		InputPuffer.puffer2.put(InputKey.MOUSE_CLICK_DOWN, new Vector2(screenX, screenY));
 		return true;
 	}

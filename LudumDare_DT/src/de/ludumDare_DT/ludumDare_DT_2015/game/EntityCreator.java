@@ -75,7 +75,7 @@ public class EntityCreator {
 
 		physicsBody.init(bodyDef, physicsSystem, entity);
 		
-		PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeBox(width, height);
+		PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height / 2.0f);
 		
 		physicsBody.createFixture(fixtureDef);
 		

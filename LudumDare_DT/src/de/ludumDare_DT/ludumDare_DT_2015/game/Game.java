@@ -99,7 +99,7 @@ public class Game implements ApplicationListener {
 
 		EntityCreator.physicsSystem = physicsSystem;
 		engine.addSystem(physicsSystem);
-		physicsSystem.setGravity(new Vector2(0, 0)); // erstmal keine gravity,
+		physicsSystem.setGravity(new Vector2(0, -10)); // erstmal keine gravity,
 
 		// add MovementSystem
 		engine.addSystem(new MovementSystem(GameConstants.PHYSICS_PRIORITY + 1));

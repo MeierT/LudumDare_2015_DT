@@ -9,10 +9,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Matrix4;
 
+import de.ludumDare_DT.ludumDare_DT_2015.game.EntityCreator;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PlayerComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PositionComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.CompMappers;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.GameConstants;
+import de.ludumDare_DT.ludumDare_DT_2015.game.util.MapLoader;
 
 /**
  * CameraSystem. Follows the entity with the most recently added PlayerComponent
@@ -40,7 +42,36 @@ public class CameraSystem extends EntitySystem implements EntityListener {
 		if (target != null) {
 			PositionComponent posComp = CompMappers.position.get(target);
 			if (posComp != null) {
-				setCameraPosition(posComp.x, posComp.y);
+				float x;
+				float y;
+				
+				int mapWidth = MapLoader.mapWidth * GameConstants.getTileSizeX();
+				int mapHeight = MapLoader.mapHeight * GameConstants.getTileSizeY();
+				
+				float cameraWidthHalf = (float) (EntityCreator.camSystem.getCamera().viewportWidth * 0.5 * GameConstants.BOX2D_SCALE);
+				float cameraHeightHalf = (float) (EntityCreator.camSystem.getCamera().viewportHeight * 0.5 * GameConstants.BOX2D_SCALE);
+				
+				if(posComp.x < cameraWidthHalf) {
+					x = cameraWidthHalf;
+				}
+				else if(posComp.x > mapWidth - cameraWidthHalf) {
+					x = mapWidth - cameraWidthHalf;
+					
+				}
+				else {
+					x = posComp.x;
+				}
+				if(posComp.y < cameraHeightHalf) {
+					y = cameraHeightHalf;
+				}
+				else if(posComp.y > mapHeight - cameraHeightHalf) {
+					y = mapHeight - cameraHeightHalf;
+				}
+				else {
+					y = posComp.y;
+				}
+				
+				setCameraPosition(x, y);
 			}
 		}
 	}

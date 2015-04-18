@@ -37,6 +37,6 @@
  </layer>
  <objectgroup name="Collision">
   <object id="1" name="Player" type="Player" x="282" y="604" width="127" height="60"/>
-  <object id="2" name="Start" type="Start" x="32" y="580" width="48" height="25"/>
+  <object id="2" name="Start" type="Start" x="61" y="543" width="48" height="25"/>
  </objectgroup>
 </map>

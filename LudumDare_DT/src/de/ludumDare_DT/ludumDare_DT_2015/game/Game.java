@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 import de.ludumDare_DT.ludumDare_DT_2015.audio.MusicManager;
 import de.ludumDare_DT.ludumDare_DT_2015.audio.SoundManager;
@@ -34,6 +35,7 @@ public class Game implements ApplicationListener{
 	 */
 	private SpriteBatch testBatch;
 	private Texture testTex;
+	private Box2DDebugRenderer box2DDebugRenderer;
 	
 	private OrthogonalTiledMapRenderer tiledMapRenderer;
 
@@ -71,8 +73,8 @@ public class Game implements ApplicationListener{
 		/* Load TiledMap */
 		TiledMap map = new TmxMapLoader().load("resources/tilesets/example.tmx");
 		
-		float unitScale = 1.0f;
-		tiledMapRenderer = new OrthogonalTiledMapRenderer(map, unitScale);
+		
+		tiledMapRenderer = new OrthogonalTiledMapRenderer(map, 1.0f / GameConstants.BOX2D_SCALE);
 		
 		/* MapLoader */ 
 		MapLoader.generateWorldFromTiledMap(engine, map, physicsSystem, EntityCreator.camSystem);
@@ -83,7 +85,9 @@ public class Game implements ApplicationListener{
 		testBatch = new SpriteBatch();
 		testTex = new Texture("resources/images/test.jpg");
 				
-		testBatch.setProjectionMatrix(engine.getSystem(CameraSystem.class).getCombinedMatrix());		
+		testBatch.setProjectionMatrix(engine.getSystem(CameraSystem.class).getCombinedMatrix());	
+		
+		box2DDebugRenderer = new Box2DDebugRenderer();
 	}
 	
 	private void addSystems() {
@@ -117,12 +121,16 @@ public class Game implements ApplicationListener{
 		
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 		
-		EntityCreator.camSystem.getCamera().update();
-		tiledMapRenderer.setView(EntityCreator.camSystem.getCamera());
-		tiledMapRenderer.render();
 		
 		
 		engine.update(Gdx.graphics.getDeltaTime());
+		
+		EntityCreator.camSystem.getCamera().update();
+
+		tiledMapRenderer.setView(EntityCreator.camSystem.getCamera());
+		tiledMapRenderer.render();
+		box2DDebugRenderer.render(EntityCreator.physicsSystem.getWorld(), EntityCreator.camSystem.getCamera().combined);
+
 		testBatch.setProjectionMatrix(engine.getSystem(CameraSystem.class).getCombinedMatrix());
 
 		

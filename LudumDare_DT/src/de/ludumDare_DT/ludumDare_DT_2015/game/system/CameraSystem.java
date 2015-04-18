@@ -64,9 +64,13 @@ public class CameraSystem extends EntitySystem implements EntityListener{
 	}
 
 	/*  CameraControls */
-	
+	/**
+	 * will be automatically downscaled!
+	 * @param width
+	 * @param height
+	 */
 	public void resizeCameraViewport(int width, int height){
-		camera.setToOrtho(GameConstants.YDOWN, width, height);
+		camera.setToOrtho(GameConstants.YDOWN, width / GameConstants.BOX2D_SCALE, height/GameConstants.BOX2D_SCALE);
 		camera.update();
 	}
 	

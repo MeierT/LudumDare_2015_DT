@@ -20,7 +20,7 @@ public class ShootingSystem extends IteratingSystem{
 		InputComponent inputComp = CompMappers.input.get(entity);
 		PositionComponent position = CompMappers.position.get(entity);
 		if(inputComp.shoot && inputComp.shootTimer <= 0){
-			inputComp.shootTimer = 1.0f;
+			inputComp.shootTimer = 0.3f;
 			EntityCreator.createHeart(position.x, position.y);
 		}else if(inputComp.shoot){
 			inputComp.shootTimer -= deltaTime;

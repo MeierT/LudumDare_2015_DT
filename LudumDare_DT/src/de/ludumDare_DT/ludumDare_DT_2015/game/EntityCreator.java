@@ -135,21 +135,18 @@ public class EntityCreator {
 	public static Entity createHeart(float x, float y){
 		Entity entity = engine.createEntity();
 		
-		/* TextureComponent 
+		
 		TextureComponent textureComponent = engine.createComponent(TextureComponent.class);
 		
 		textureComponent.texture = new TextureRegion(new Texture("resources/images/Amor2.png"));
 		
 		entity.add(textureComponent);
-				*/
+				
 		
-		/*
-		 * PhysicsBody
-		 */
-		/*
+		
 		float width = textureComponent.texture.getRegionWidth();
 		float height = textureComponent.texture.getRegionHeight();
-		*/
+		
 		
 		PhysicsBodyComponent physicsBody = engine
 				.createComponent(PhysicsBodyComponent.class);
@@ -158,7 +155,7 @@ public class EntityCreator {
 
 		physicsBody.init(bodyDef, physicsSystem, entity);
 		
-		PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(32);
+		PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height/2);
 		
 		Fixture fixture = physicsBody.createFixture(fixtureDef);
 		fixture.setUserData(physicsBody);

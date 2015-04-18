@@ -1,6 +1,9 @@
 package de.ludumDare_DT.ludumDare_DT_2015.input;
 
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector2;
+
+import de.ludumDare_DT.ludumDare_DT_2015.game.Game;
 
 public class KeyboardMouseProcessor implements InputProcessor {
 
@@ -23,9 +26,9 @@ public class KeyboardMouseProcessor implements InputProcessor {
 	}
 
 	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {			
+		InputPuffer.puffer2.put(InputKey.MOUSE_CLICK_DOWN, new Vector2(screenX, screenY));
+		return true;
 	}
 
 	@Override

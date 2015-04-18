@@ -44,6 +44,7 @@ public class Game implements ApplicationListener{
 	public void create() {
 		// creating the Ashley engine
 		engine = new PooledEngine();
+		EntityCreator.engine = engine;
 		
 		// initialise Box2D
 		Box2D.init();
@@ -74,6 +75,7 @@ public class Game implements ApplicationListener{
 				GameConstants.BOX2D_POSITIONS_ITERATIONS,
 				GameConstants.BOX2D_SCALE, GameConstants.PHYSICS_PRIORITY);
 
+		EntityCreator.physicsSystem = physicsSystem;
 		engine.addSystem(physicsSystem);
 		physicsSystem.setGravity(new Vector2(0, 0)); // erstmal keine gravity,
 													
@@ -82,7 +84,10 @@ public class Game implements ApplicationListener{
 				GameConstants.PHYSICS_PRIORITY + 2));
 		
 		// CameraSystem
-		engine.addSystem(new CameraSystem(GameConstants.CAMERA_PRIORITY));
+		CameraSystem camSystem = new CameraSystem(GameConstants.CAMERA_PRIORITY);
+		EntityCreator.camSystem = camSystem;
+		engine.addSystem(camSystem);
+		
 	}
 
 	@Override

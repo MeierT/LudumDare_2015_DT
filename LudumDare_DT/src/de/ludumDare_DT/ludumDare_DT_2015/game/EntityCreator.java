@@ -2,6 +2,8 @@ package de.ludumDare_DT.ludumDare_DT_2015.game;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
@@ -10,6 +12,8 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.components.MovementComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsBodyComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PlayerComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PositionComponent;
+import de.ludumDare_DT.ludumDare_DT_2015.game.components.StartPointComponent;
+import de.ludumDare_DT.ludumDare_DT_2015.game.components.TextureComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.CameraSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.PhysicsSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.GameConstants;
@@ -48,14 +52,22 @@ public class EntityCreator {
 		return entity;	
 	}
 	
-	public static Entity createPlayer(TextureRegion texutureRegion, float x, float y){
+	public static Entity createPlayer(float x, float y) {
 		Entity entity = engine.createEntity();
+		
+		/* TextureComponent */
+		TextureComponent textureComponent = engine.createComponent(TextureComponent.class);
+		
+		textureComponent.texture = new TextureRegion(new Texture("resources/images/testPlayer.png"));
+		
+		entity.add(textureComponent);
+				
 		
 		/*
 		 * PhysicsBody
 		 */
-		float width = texutureRegion.getRegionWidth();
-		float height = texutureRegion.getRegionHeight();
+		float width = textureComponent.texture.getRegionWidth();
+		float height = textureComponent.texture.getRegionHeight();
 		PhysicsBodyComponent physicsBody = engine
 				.createComponent(PhysicsBodyComponent.class);
 		PhysicsBodyDef bodyDef = new PhysicsBodyDef(BodyType.DynamicBody,
@@ -73,10 +85,10 @@ public class EntityCreator {
 		entity.add(engine.createComponent(InputComponent.class));
 		
 		// PositionComponent
-		entity.add(engine.createComponent(PositionComponent.class));
-		
-		// TextureComponent
-		// entity.add(engine.createComponent(TextureComponent.class));
+		PositionComponent positionComponet = engine.createComponent(PositionComponent.class);
+		positionComponet.x = x;
+		positionComponet.y = y;
+		entity.add(positionComponet);
 		
 		//MovementComponent
 		MovementComponent movementComponent = engine.createComponent(MovementComponent.class);
@@ -85,6 +97,26 @@ public class EntityCreator {
 		
 		//PlayerComponent 
 		entity.add(engine.createComponent(PlayerComponent.class));
+		
+		engine.addEntity(entity);
+		return entity;
+	}
+	
+	public static Entity createStartPoint(float x, float y) {
+		EntityCreator.createPlayer(x, y);
+		
+		Entity entity = engine.createEntity();
+		
+		/* Position */
+		PositionComponent positionComponent = engine.createComponent(PositionComponent.class);
+		
+		positionComponent.x = x;
+		positionComponent.y = y;
+		
+		entity.add(positionComponent);
+		
+		/* Unique start point component */
+		entity.add(engine.createComponent(StartPointComponent.class));
 		
 		engine.addEntity(entity);
 		return entity;

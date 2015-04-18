@@ -58,7 +58,7 @@ public class EntityCreator {
 		float height = texutureRegion.getRegionHeight();
 		PhysicsBodyComponent physicsBody = engine
 				.createComponent(PhysicsBodyComponent.class);
-		PhysicsBodyDef bodyDef = new PhysicsBodyDef(BodyType.StaticBody,
+		PhysicsBodyDef bodyDef = new PhysicsBodyDef(BodyType.DynamicBody,
 				physicsSystem).fixedRotation(true).position(x, y);
 
 		physicsBody.init(bodyDef, physicsSystem, entity);
@@ -80,7 +80,7 @@ public class EntityCreator {
 		
 		//MovementComponent
 		MovementComponent movementComponent = engine.createComponent(MovementComponent.class);
-		movementComponent.speed = 10.0f;
+		movementComponent.speed = 5.0f;
 		entity.add(movementComponent);
 		
 		//PlayerComponent 

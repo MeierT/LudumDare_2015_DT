@@ -18,7 +18,7 @@ public class KeyboardMouseProcessor implements InputProcessor {
 	
 	private void move(float plane, float up, float down) {
 		for(Entity entity : EntityCreator.engine.getEntitiesFor(Family.all(InputComponent.class, PlayerComponent.class).get())) {
-			entity.getComponent(InputComponent.class).plane += plane;
+			entity.getComponent(InputComponent.class).x += plane;
 		}
 	}
 

@@ -13,7 +13,7 @@ public class MovementSystem extends IteratingSystem {
 
 
 	public MovementSystem(int priority) {
-		super(Family.all(MovementComponent.class/*, PhysicsBodyComponent.class*/)
+		super(Family.all(MovementComponent.class , PhysicsBodyComponent.class)
 				.get(), priority);
 	}
 
@@ -28,6 +28,7 @@ public class MovementSystem extends IteratingSystem {
 			movement.velocity.set(input.x * movement.speed,
 					input.y * movement.speed);
 		}
+		System.out.println(movement.velocity);
 		physicsBody.getBody().setLinearVelocity(movement.velocity);
 		
 	}

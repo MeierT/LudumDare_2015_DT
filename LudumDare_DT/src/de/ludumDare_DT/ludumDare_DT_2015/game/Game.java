@@ -19,24 +19,24 @@ import de.ludumDare_DT.ludumDare_DT_2015.audio.MusicManager;
 import de.ludumDare_DT.ludumDare_DT_2015.audio.SoundManager;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.CameraSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.InputSystem;
+import de.ludumDare_DT.ludumDare_DT_2015.game.system.MovementSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.PhysicsSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.UpdatePositionSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.GameConstants;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.MapLoader;
 import de.ludumDare_DT.ludumDare_DT_2015.input.InputManager;
 
-public class Game implements ApplicationListener{
-	
-	
+public class Game implements ApplicationListener {
+
 	private PooledEngine engine;
-	
+
 	/**
 	 * Testing!
 	 */
 	private SpriteBatch testBatch;
 	private Texture testTex;
 	private Box2DDebugRenderer box2DDebugRenderer;
-	
+
 	private OrthogonalTiledMapRenderer tiledMapRenderer;
 
 	private final InputSystem inputSystem = new InputSystem(10);
@@ -51,112 +51,115 @@ public class Game implements ApplicationListener{
 	public static SoundManager soundManager;
 	public static MusicManager musicManager;
 	public static AssetManager assetManager;
-	
+
 	@Override
 	public void create() {
 		// creating the Ashley engine
 		engine = new PooledEngine();
 		EntityCreator.engine = engine;
-		
+
 		// initialise Box2D
 		Box2D.init();
-		
+
 		/* Manager */
 		inputManager = new InputManager();
 		soundManager = new SoundManager();
 		musicManager = new MusicManager();
 		assetManager = new AssetManager();
-		
+
 		/* Systems */
 		this.addSystems();
-		
+
 		/* Load TiledMap */
-		TiledMap map = new TmxMapLoader().load("resources/tilesets/example.tmx");
-		
-		
-		tiledMapRenderer = new OrthogonalTiledMapRenderer(map, 1.0f / GameConstants.BOX2D_SCALE);
-		
-		/* MapLoader */ 
-		MapLoader.generateWorldFromTiledMap(engine, map, physicsSystem, EntityCreator.camSystem);
-		
+		TiledMap map = new TmxMapLoader()
+				.load("resources/tilesets/example.tmx");
+
+		tiledMapRenderer = new OrthogonalTiledMapRenderer(map,
+				1.0f / GameConstants.BOX2D_SCALE);
+
+		/* MapLoader */
+		MapLoader.generateWorldFromTiledMap(engine, map, physicsSystem,
+				EntityCreator.camSystem);
+
 		/*
 		 * Test n stuff
 		 */
 		testBatch = new SpriteBatch();
 		testTex = new Texture("resources/images/test.jpg");
-				
-		testBatch.setProjectionMatrix(engine.getSystem(CameraSystem.class).getCombinedMatrix());	
-		
+
+		testBatch.setProjectionMatrix(engine.getSystem(CameraSystem.class)
+				.getCombinedMatrix());
+
 		box2DDebugRenderer = new Box2DDebugRenderer();
 	}
-	
+
 	private void addSystems() {
-		engine.addSystem(inputSystem);		
+		engine.addSystem(inputSystem);
 		engine.addSystem(physicsSystem);
-		
 
 		EntityCreator.physicsSystem = physicsSystem;
 		engine.addSystem(physicsSystem);
 		physicsSystem.setGravity(new Vector2(0, 0)); // erstmal keine gravity,
-													
+
+		// add MovementSystem
+		engine.addSystem(new MovementSystem(GameConstants.PHYSICS_PRIORITY + 1));
+
 		// add UpdatePositionSystem
 		engine.addSystem(new UpdatePositionSystem(
 				GameConstants.PHYSICS_PRIORITY + 2));
-		
+
 		// CameraSystem
 		CameraSystem camSystem = new CameraSystem(GameConstants.CAMERA_PRIORITY);
 		EntityCreator.camSystem = camSystem;
 		engine.addSystem(camSystem);
-		
+
 	}
 
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void render() {
-		
+
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-		
-		
-		
+
 		engine.update(Gdx.graphics.getDeltaTime());
-		
+
 		EntityCreator.camSystem.getCamera().update();
 
 		tiledMapRenderer.setView(EntityCreator.camSystem.getCamera());
 		tiledMapRenderer.render();
-		box2DDebugRenderer.render(EntityCreator.physicsSystem.getWorld(), EntityCreator.camSystem.getCamera().combined);
+		box2DDebugRenderer.render(EntityCreator.physicsSystem.getWorld(),
+				EntityCreator.camSystem.getCamera().combined);
 
-		testBatch.setProjectionMatrix(engine.getSystem(CameraSystem.class).getCombinedMatrix());
+		testBatch.setProjectionMatrix(engine.getSystem(CameraSystem.class)
+				.getCombinedMatrix());
 
-		
-	
-//				
-//		testBatch.begin();
-//		testBatch.draw(testTex, 0, 0);
-//		testBatch.end();
+		//
+		// testBatch.begin();
+		// testBatch.draw(testTex, 0, 0);
+		// testBatch.end();
 	}
 
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

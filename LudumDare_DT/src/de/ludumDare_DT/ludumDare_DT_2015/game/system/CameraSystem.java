@@ -79,8 +79,8 @@ public class CameraSystem extends EntitySystem implements EntityListener{
 	}
 	
 	public void setCameraPosition(float x, float y){
-		camera.position.x = Math.round(x);
-		camera.position.y = Math.round(y);
+		camera.position.x = Math.round(x/ GameConstants.BOX2D_SCALE) ;
+		camera.position.y = Math.round(y/ GameConstants.BOX2D_SCALE);
 		camera.update();
 	}
 	

@@ -60,6 +60,7 @@ public class EntityCreator {
 				.createComponent(PhysicsBodyComponent.class);
 		PhysicsBodyDef bodyDef = new PhysicsBodyDef(BodyType.StaticBody,
 				physicsSystem).fixedRotation(true).position(x, y);
+
 		physicsBody.init(bodyDef, physicsSystem, entity);
 		
 		PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeBox(width, height);

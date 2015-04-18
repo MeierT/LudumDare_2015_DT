@@ -6,7 +6,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.InputComponent;
+import de.ludumDare_DT.ludumDare_DT_2015.game.components.MovementComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsBodyComponent;
+import de.ludumDare_DT.ludumDare_DT_2015.game.components.PlayerComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PositionComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.CameraSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.PhysicsSystem;
@@ -56,8 +58,9 @@ public class EntityCreator {
 		float height = texutureRegion.getRegionHeight();
 		PhysicsBodyComponent physicsBody = engine
 				.createComponent(PhysicsBodyComponent.class);
-		PhysicsBodyDef bodyDef = new PhysicsBodyDef(BodyType.StaticBody,
+		PhysicsBodyDef bodyDef = new PhysicsBodyDef(BodyType.DynamicBody,
 				physicsSystem).fixedRotation(true).position(x, y);
+
 		physicsBody.init(bodyDef, physicsSystem, entity);
 		
 		PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeBox(width, height);
@@ -74,6 +77,14 @@ public class EntityCreator {
 		
 		// TextureComponent
 		// entity.add(engine.createComponent(TextureComponent.class));
+		
+		//MovementComponent
+		MovementComponent movementComponent = engine.createComponent(MovementComponent.class);
+		movementComponent.speed = 5.0f;
+		entity.add(movementComponent);
+		
+		//PlayerComponent 
+		entity.add(engine.createComponent(PlayerComponent.class));
 		
 		engine.addEntity(entity);
 		return entity;

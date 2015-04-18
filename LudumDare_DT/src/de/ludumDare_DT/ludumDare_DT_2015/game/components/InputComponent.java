@@ -9,13 +9,17 @@ public class InputComponent extends Component implements Pool.Poolable {
 	public float y = 0.0f;
 	
 	public boolean jump = false;
+	public boolean shoot = false;
+	
+	public float shootTimer = 0f;
 	
 	@Override
 	public void reset() {
 		this.x = 0.0f;
 		this.y = 0.0f;
+		this.shootTimer = 0f;
 		
-		this.jump = false;
+		this.jump = shoot = false;
 	}
 
 }

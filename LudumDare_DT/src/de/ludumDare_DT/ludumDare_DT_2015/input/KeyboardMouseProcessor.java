@@ -19,7 +19,13 @@ public class KeyboardMouseProcessor implements InputProcessor {
 	
 	private void jump() {
 		for(Entity entity : EntityCreator.engine.getEntitiesFor(Family.all(InputComponent.class, PlayerComponent.class).get())) {
-			entity.getComponent(InputComponent.class).jump = true;;
+			entity.getComponent(InputComponent.class).jump = true;
+		}
+	}
+	
+	private void shoot(boolean toShoot){
+		for(Entity entity : EntityCreator.engine.getEntitiesFor(Family.all(InputComponent.class, PlayerComponent.class).get())) {
+			entity.getComponent(InputComponent.class).shoot = toShoot;
 		}
 	}
 
@@ -54,13 +60,13 @@ public class KeyboardMouseProcessor implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {			
-		System.out.println("schiesen");
+		this.shoot(true);
 		return true;
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
+		this.shoot(false);
 		return false;
 	}
 

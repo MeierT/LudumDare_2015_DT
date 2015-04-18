@@ -58,7 +58,7 @@ public class EntityCreator {
 		/* TextureComponent */
 		TextureComponent textureComponent = engine.createComponent(TextureComponent.class);
 		
-		textureComponent.texture = new TextureRegion(new Texture("resources/images/testPlayer.png"));
+		textureComponent.texture = new TextureRegion(new Texture("resources/images/Amor2.png"));
 		
 		entity.add(textureComponent);
 				

@@ -21,6 +21,7 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.system.CameraSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.InputSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.MovementSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.PhysicsSystem;
+import de.ludumDare_DT.ludumDare_DT_2015.game.system.TextureRenderer;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.UpdatePositionSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.GameConstants;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.MapLoader;
@@ -45,6 +46,8 @@ public class Game implements ApplicationListener {
 			GameConstants.BOX2D_VELOCITY_ITERATIONS,
 			GameConstants.BOX2D_POSITIONS_ITERATIONS,
 			GameConstants.BOX2D_SCALE, GameConstants.PHYSICS_PRIORITY);
+	
+	private final TextureRenderer textureRenderer = new TextureRenderer(80);
 
 	/** Manager */
 	public InputManager inputManager;
@@ -80,6 +83,9 @@ public class Game implements ApplicationListener {
 		/* MapLoader */
 		MapLoader.generateWorldFromTiledMap(engine, map, physicsSystem,
 				EntityCreator.camSystem);
+		
+//		DrawUtil.batch.setTransformMatrix(engine.getSystem(CameraSystem.class).getCombinedMatrix());
+//		setProjectionMatrix(engine.getSystem(CameraSystem.class).getCombinedMatrix());
 
 		/*
 		 * Test n stuff
@@ -112,6 +118,9 @@ public class Game implements ApplicationListener {
 		CameraSystem camSystem = new CameraSystem(GameConstants.CAMERA_PRIORITY);
 		EntityCreator.camSystem = camSystem;
 		engine.addSystem(camSystem);
+		
+		/* TextureRenderer */
+		engine.addSystem(textureRenderer);
 
 	}
 
@@ -135,13 +144,11 @@ public class Game implements ApplicationListener {
 		box2DDebugRenderer.render(EntityCreator.physicsSystem.getWorld(),
 				EntityCreator.camSystem.getCamera().combined);
 
-		testBatch.setProjectionMatrix(engine.getSystem(CameraSystem.class)
-				.getCombinedMatrix());
+//		testBatch.setProjectionMatrix(engine.getSystem(CameraSystem.class)
+//				.getCombinedMatrix());
 
 		//
-		// testBatch.begin();
-		// testBatch.draw(testTex, 0, 0);
-		// testBatch.end();
+		 
 	}
 
 	@Override

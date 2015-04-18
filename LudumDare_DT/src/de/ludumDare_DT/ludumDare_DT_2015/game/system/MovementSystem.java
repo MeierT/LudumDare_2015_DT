@@ -28,7 +28,6 @@ public class MovementSystem extends IteratingSystem {
 			movement.velocity.set(input.x * movement.speed,
 					input.y * movement.speed);
 		}
-		System.out.println(movement.velocity);
 		physicsBody.getBody().setLinearVelocity(movement.velocity);
 		
 	}

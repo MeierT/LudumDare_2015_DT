@@ -63,11 +63,9 @@ public class MapLoader {
 						e2.printStackTrace();
 					}
 					switch (name) {
-					case "Player":
-						EntityCreator.createPlayer(new TextureRegion(new Texture("resources/images/testPlayer.png")), positionX , positionY);
+					case "Start": 
+						EntityCreator.createStartPoint(positionX, positionY);
 						break;
-					case "Startpoint": 
-						EntityCreator.createStartpoint(positionX, positionY)
 					default:
 						break;
 					}

@@ -89,4 +89,9 @@ public class EntityCreator {
 		engine.addEntity(entity);
 		return entity;
 	}
+	
+	public static Entity createStartpoint(float x, float y) {
+		
+		return null;
+	}
 }

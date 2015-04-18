@@ -66,7 +66,8 @@ public class MapLoader {
 					case "Player":
 						EntityCreator.createPlayer(new TextureRegion(new Texture("resources/images/testPlayer.png")), positionX , positionY);
 						break;
-
+					case "Startpoint": 
+						EntityCreator.createStartpoint(positionX, positionY)
 					default:
 						break;
 					}

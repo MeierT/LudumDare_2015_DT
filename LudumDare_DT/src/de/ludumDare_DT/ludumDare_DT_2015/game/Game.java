@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 import de.ludumDare_DT.ludumDare_DT_2015.audio.MusicManager;
 import de.ludumDare_DT.ludumDare_DT_2015.audio.SoundManager;
+import de.ludumDare_DT.ludumDare_DT_2015.game.contactlistener.MyContactListener;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.CameraSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.InputSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.JumpSystem;
@@ -75,6 +76,8 @@ public class Game implements ApplicationListener {
 
 		/* Systems */
 		this.addSystems();
+		
+		EntityCreator.physicsSystem.getWorld().setContactListener(new MyContactListener());
 
 		/* Load TiledMap */
 		TiledMap map = new TmxMapLoader()

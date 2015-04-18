@@ -4,7 +4,9 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.Fixture;
 
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.InputComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.JumpComponent;
@@ -77,7 +79,12 @@ public class EntityCreator {
 		
 		PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height / 2.0f);
 		
-		physicsBody.createFixture(fixtureDef);
+		Fixture fixture = physicsBody.createFixture(fixtureDef);
+		
+		fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height / 10.0f,new Vector2(0, - height * 0.5f)).sensor(true);
+		
+		fixture = physicsBody.createFixture(fixtureDef);
+		fixture.setUserData("Jump");
 		
 		entity.add(physicsBody);
 		
@@ -92,7 +99,7 @@ public class EntityCreator {
 		
 		//MovementComponent
 		MovementComponent movementComponent = engine.createComponent(MovementComponent.class);
-		movementComponent.speed = 5.0f;
+		movementComponent.speed = 4.0f;
 		entity.add(movementComponent);
 		
 		//PlayerComponent 

@@ -16,23 +16,17 @@ public class JumpSystem extends IteratingSystem {
 
 	@Override
 	protected void processEntity(Entity entity, float deltaTime) {
-		// When jump is false
-		if(!entity.getComponent(InputComponent.class).jump) {
-			return;
-		}
-		else {
-			float force = 1000.0f;
+		if(entity.getComponent(JumpComponent.class).force > 0.0f) {
+			entity.getComponent(PhysicsBodyComponent.class).getBody().applyForceToCenter(0.0f, 
+							entity.getComponent(JumpComponent.class).force, true);
+			entity.getComponent(JumpComponent.class).force = (entity.getComponent(JumpComponent.class).force - entity.getComponent(JumpComponent.class).forceDown > 0) ? entity.getComponent(JumpComponent.class).force - entity.getComponent(JumpComponent.class).forceDown : 0.0f;
+		} 
+		// Jump if true
+		System.out.println(entity.getComponent(JumpComponent.class).groundContacts > 0 && entity.getComponent(InputComponent.class).jump);
+		if(entity.getComponent(JumpComponent.class).groundContacts > 0 && entity.getComponent(InputComponent.class).jump) {
+			float force = 900.0f;
 			entity.getComponent(JumpComponent.class).force = force;
 			entity.getComponent(JumpComponent.class).forceDown = force / 60;
-		}
-		
-		if(entity.getComponent(JumpComponent.class).force <= 0.0f) {
-			return;
-		}
-		
-		entity.getComponent(PhysicsBodyComponent.class).getBody().applyForceToCenter(0.0f, 
-			entity.getComponent(JumpComponent.class).force, true);
-		entity.getComponent(JumpComponent.class).force = (entity.getComponent(JumpComponent.class).force - entity.getComponent(JumpComponent.class).forceDown > 0) ? entity.getComponent(JumpComponent.class).force - entity.getComponent(JumpComponent.class).forceDown : 0.0f;
-		
+		}		
 	}
 }

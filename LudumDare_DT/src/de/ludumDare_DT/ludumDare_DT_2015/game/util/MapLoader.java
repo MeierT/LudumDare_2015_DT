@@ -10,6 +10,5 @@ public class MapLoader {
 
 	public static void generateWorldFromTiledMap(PooledEngine engine, TiledMap map, PhysicsSystem physicsSystem, CameraSystem cameraSystem){
 		
-	}
-	
+	}	
 }

@@ -19,6 +19,9 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.system.PhysicsSystem;
 
 public class MapLoader {
 	private static boolean loaded = false;
+	
+	public static int mapHeight = 0;
+	public static int mapWidth = 0;
 
 	public static void generateWorldFromTiledMap(PooledEngine engine,
 			TiledMap map, PhysicsSystem physicsSystem, CameraSystem cameraSystem) {
@@ -29,8 +32,6 @@ public class MapLoader {
 			
 			TiledMapTileLayer mapLayer;
 			
-			int mapHeight, mapWidth;
-			mapHeight = mapWidth = 0;
 			try {
 				// is it a TiledMapTileLayer?
 				mapLayer = (TiledMapTileLayer) mapLayers.get(x);

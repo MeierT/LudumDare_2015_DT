@@ -10,11 +10,13 @@ import com.badlogic.gdx.utils.Pool;
  */
 public class JumpComponent extends Component implements Pool.Poolable {
 	
-	boolean jump = false;
+	public boolean jump = false;
+	public int groundContacts = 0;
 
 	@Override
 	public void reset() {
 		jump = false;
+		groundContacts = 0;
 	}
 
 }

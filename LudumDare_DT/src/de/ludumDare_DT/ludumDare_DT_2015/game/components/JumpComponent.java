@@ -7,11 +7,11 @@ public class JumpComponent extends Component implements Pool.Poolable{
 
 	public float force = 0.0f;
 	public float forceDown = 0.0f;
+	public boolean jump = false;
+	public int groundContacts = 0;
 	
 	@Override
 	public void reset() {
 		// TODO Auto-generated method stub
-		
 	}
-
 }

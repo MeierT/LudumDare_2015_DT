@@ -2,15 +2,20 @@ package de.ludumDare_DT.ludumDare_DT_2015.game;
 
 import org.lwjgl.opengl.GL11;
 
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
+
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -45,6 +50,10 @@ public class Game implements ApplicationListener {
 			GameConstants.BOX2D_VELOCITY_ITERATIONS,
 			GameConstants.BOX2D_POSITIONS_ITERATIONS,
 			GameConstants.BOX2D_SCALE, GameConstants.PHYSICS_PRIORITY);
+	
+	
+	private RayHandler rayHandler;
+	private PointLight light;
 
 	/** Manager */
 	public InputManager inputManager;
@@ -81,6 +90,11 @@ public class Game implements ApplicationListener {
 		MapLoader.generateWorldFromTiledMap(engine, map, physicsSystem,
 				EntityCreator.camSystem);
 
+		rayHandler = new RayHandler(physicsSystem.getWorld());
+        rayHandler.setCombinedMatrix(new Matrix4());
+        
+        light = new PointLight(rayHandler, 100, Color.GREEN, 1, 0, 0);
+        
 		/*
 		 * Test n stuff
 		 */
@@ -125,8 +139,10 @@ public class Game implements ApplicationListener {
 	public void render() {
 
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-
+		rayHandler.updateAndRender();
 		engine.update(Gdx.graphics.getDeltaTime());
+		
+		light.setPosition(new Vector2(light.getPosition().x + 0.005f, light.getPosition().y));
 
 		EntityCreator.camSystem.getCamera().update();
 

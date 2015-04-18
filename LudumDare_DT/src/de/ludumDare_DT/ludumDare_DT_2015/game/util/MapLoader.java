@@ -2,6 +2,8 @@ package de.ludumDare_DT.ludumDare_DT_2015.game.util;
 
 import java.nio.file.AccessDeniedException;
 
+import box2dLight.RayHandler;
+
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

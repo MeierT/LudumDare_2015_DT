@@ -2,6 +2,8 @@ package de.ludumDare_DT.ludumDare_DT_2015.game.system;
 
 import java.util.List;
 
+import box2dLight.RayHandler;
+
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;

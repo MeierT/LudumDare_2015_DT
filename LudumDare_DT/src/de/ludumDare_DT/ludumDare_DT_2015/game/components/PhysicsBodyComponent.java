@@ -18,7 +18,7 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.util.PhysicsFixtureDef;
  *
  */
 public class PhysicsBodyComponent extends Component implements Poolable {
-
+    
     private Body body;
     private PhysicsSystem system;
     private Entity entity;

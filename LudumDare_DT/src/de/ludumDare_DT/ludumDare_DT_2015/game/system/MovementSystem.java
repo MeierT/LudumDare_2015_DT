@@ -25,10 +25,10 @@ public class MovementSystem extends IteratingSystem {
 		if (input != null) {
 			// set the velocity to the direction vector given by input
 			// multiplicated by the scalar of the movement speed
-			//movement.velocity.set(input.direction.x * movement.speed,
-			//		input.direction.y * movement.speed);
+			movement.velocity.set(input.x * movement.speed,
+					input.y * movement.speed);
 		}
-		// physicsBody.getBody().setLinearVelocity(movement.velocity);
+		physicsBody.getBody().setLinearVelocity(movement.velocity);
 		
 	}
 

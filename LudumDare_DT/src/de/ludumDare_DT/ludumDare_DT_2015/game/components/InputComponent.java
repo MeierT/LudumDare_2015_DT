@@ -5,13 +5,13 @@ import com.badlogic.gdx.utils.Pool;
 
 public class InputComponent extends Component implements Pool.Poolable {
 	
-	public Float x = 0.0f;
-	public Float y = 0.0f;
+	public float x = 0.0f;
+	public float y = 0.0f;
 	
 	@Override
 	public void reset() {
-		this.x = null;
-		
+		this.x = 0.0f;
+		this.y = 0.0f;
 	}
 
 }

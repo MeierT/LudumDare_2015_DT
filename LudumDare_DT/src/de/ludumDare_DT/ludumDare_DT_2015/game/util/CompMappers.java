@@ -3,6 +3,7 @@ package de.ludumDare_DT.ludumDare_DT_2015.game.util;
 import com.badlogic.ashley.core.ComponentMapper;
 
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.InputComponent;
+import de.ludumDare_DT.ludumDare_DT_2015.game.components.MovementComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsBodyComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsModifierComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PlayerComponent;
@@ -27,5 +28,7 @@ public class CompMappers {
 			.getFor(InputComponent.class);
 	public static final ComponentMapper<PlayerComponent> player = ComponentMapper
 			.getFor(PlayerComponent.class);
+	public static final ComponentMapper<MovementComponent> movement = ComponentMapper
+			.getFor(MovementComponent.class);
 
 }

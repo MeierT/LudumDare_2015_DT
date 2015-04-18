@@ -4,10 +4,13 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Pool;
 
 public class InputComponent extends Component implements Pool.Poolable {
-
+	
+	public Float x = 0.0f;
+	public Float y = 0.0f;
+	
 	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
+		this.x = null;
 		
 	}
 

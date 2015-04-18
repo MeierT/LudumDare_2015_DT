@@ -19,6 +19,7 @@ import de.ludumDare_DT.ludumDare_DT_2015.audio.MusicManager;
 import de.ludumDare_DT.ludumDare_DT_2015.audio.SoundManager;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.CameraSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.InputSystem;
+import de.ludumDare_DT.ludumDare_DT_2015.game.system.JumpSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.MovementSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.PhysicsSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.TextureRenderer;
@@ -48,6 +49,8 @@ public class Game implements ApplicationListener {
 			GameConstants.BOX2D_SCALE, GameConstants.PHYSICS_PRIORITY);
 	
 	private final TextureRenderer textureRenderer = new TextureRenderer(80);
+	
+	private final JumpSystem jumpSystem = new JumpSystem(20);
 
 	/** Manager */
 	public InputManager inputManager;
@@ -105,7 +108,7 @@ public class Game implements ApplicationListener {
 
 		EntityCreator.physicsSystem = physicsSystem;
 		engine.addSystem(physicsSystem);
-		physicsSystem.setGravity(new Vector2(0, -10)); // erstmal keine gravity,
+		physicsSystem.setGravity(new Vector2(0, -30)); // erstmal keine gravity,
 
 		// add MovementSystem
 		engine.addSystem(new MovementSystem(GameConstants.PHYSICS_PRIORITY + 1));
@@ -121,6 +124,8 @@ public class Game implements ApplicationListener {
 		
 		/* TextureRenderer */
 		engine.addSystem(textureRenderer);
+		
+		engine.addSystem(jumpSystem);
 
 	}
 

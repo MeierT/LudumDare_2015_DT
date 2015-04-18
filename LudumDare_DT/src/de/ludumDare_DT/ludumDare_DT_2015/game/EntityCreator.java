@@ -2,12 +2,12 @@ package de.ludumDare_DT.ludumDare_DT_2015.game;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.InputComponent;
+import de.ludumDare_DT.ludumDare_DT_2015.game.components.JumpComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.MovementComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsBodyComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PlayerComponent;
@@ -71,7 +71,7 @@ public class EntityCreator {
 		PhysicsBodyComponent physicsBody = engine
 				.createComponent(PhysicsBodyComponent.class);
 		PhysicsBodyDef bodyDef = new PhysicsBodyDef(BodyType.DynamicBody,
-				physicsSystem).fixedRotation(true).position(x, y);
+				physicsSystem).fixedRotation(true).position(x, y).gravityScale(10.0f);
 
 		physicsBody.init(bodyDef, physicsSystem, entity);
 		
@@ -97,6 +97,8 @@ public class EntityCreator {
 		
 		//PlayerComponent 
 		entity.add(engine.createComponent(PlayerComponent.class));
+		
+		entity.add(engine.createComponent(JumpComponent.class));
 		
 		engine.addEntity(entity);
 		return entity;

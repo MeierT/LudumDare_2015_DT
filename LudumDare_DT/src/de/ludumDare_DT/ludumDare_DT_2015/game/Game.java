@@ -89,11 +89,6 @@ public class Game implements ApplicationListener {
 		/* MapLoader */
 		MapLoader.generateWorldFromTiledMap(engine, map, physicsSystem,
 				EntityCreator.camSystem);
-
-		rayHandler = new RayHandler(physicsSystem.getWorld());
-        rayHandler.setCombinedMatrix(new Matrix4());
-        
-        light = new PointLight(rayHandler, 100, Color.GREEN, 1, 0, 0);
         
 		/*
 		 * Test n stuff
@@ -101,8 +96,13 @@ public class Game implements ApplicationListener {
 		testBatch = new SpriteBatch();
 		testTex = new Texture("resources/images/test.jpg");
 
-		testBatch.setProjectionMatrix(engine.getSystem(CameraSystem.class)
+		testBatch.setProjectionMatrix(EntityCreator.camSystem
 				.getCombinedMatrix());
+		
+		rayHandler = new RayHandler(physicsSystem.getWorld());
+        rayHandler.setCombinedMatrix(EntityCreator.camSystem.getCombinedMatrix());
+        
+        light = new PointLight(rayHandler, 50, Color.GREEN, 15, 5,5);
 
 		box2DDebugRenderer = new Box2DDebugRenderer();
 	}
@@ -139,10 +139,7 @@ public class Game implements ApplicationListener {
 	public void render() {
 
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-		rayHandler.updateAndRender();
 		engine.update(Gdx.graphics.getDeltaTime());
-		
-		light.setPosition(new Vector2(light.getPosition().x + 0.005f, light.getPosition().y));
 
 		EntityCreator.camSystem.getCamera().update();
 
@@ -153,7 +150,7 @@ public class Game implements ApplicationListener {
 
 		testBatch.setProjectionMatrix(engine.getSystem(CameraSystem.class)
 				.getCombinedMatrix());
-
+		rayHandler.updateAndRender();
 		//
 		// testBatch.begin();
 		// testBatch.draw(testTex, 0, 0);

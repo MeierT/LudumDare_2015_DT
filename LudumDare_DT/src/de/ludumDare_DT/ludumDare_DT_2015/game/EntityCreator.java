@@ -75,7 +75,7 @@ public class EntityCreator {
 
 		physicsBody.init(bodyDef, physicsSystem, entity);
 		
-		PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeBox(width, height);
+		PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeBox(width, height).restitution(1f).density(1f).friction(1f);
 		
 		physicsBody.createFixture(fixtureDef);
 		
@@ -112,6 +112,8 @@ public class EntityCreator {
 		
 		positionComponent.x = x;
 		positionComponent.y = y;
+		
+		
 		
 		entity.add(positionComponent);
 		

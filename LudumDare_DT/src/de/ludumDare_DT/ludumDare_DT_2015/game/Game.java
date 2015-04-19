@@ -2,6 +2,7 @@ package de.ludumDare_DT.ludumDare_DT_2015.game;
 
 import org.lwjgl.opengl.GL11;
 
+import box2dLight.ConeLight;
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
 
@@ -60,6 +61,8 @@ public class Game implements ApplicationListener {
 	public static SoundManager soundManager;
 	public static MusicManager musicManager;
 	public static AssetManager assetManager;
+	
+	ConeLight light2;
 
 	@Override
 	public void create() {
@@ -99,12 +102,16 @@ public class Game implements ApplicationListener {
 		testBatch.setProjectionMatrix(EntityCreator.camSystem
 				.getCombinedMatrix());
 		
-		rayHandler = new RayHandler(physicsSystem.getWorld());
-        rayHandler.setCombinedMatrix(EntityCreator.camSystem.getCombinedMatrix());
-        
-        light = new PointLight(rayHandler, 50, Color.GREEN, 15, 5,5);
-
 		box2DDebugRenderer = new Box2DDebugRenderer();
+		rayHandler = new RayHandler(physicsSystem.getWorld());
+        rayHandler.setCombinedMatrix(EntityCreator.camSystem.getCamera());
+        rayHandler.setShadows(true);
+        rayHandler.setAmbientLight(0.3f,0.3f,0.3f,0.5f);
+
+        light2 = new ConeLight(rayHandler,100,Color.BLUE, 20, 5, 5, 270.0f, 45.0f);
+        //light2.setXray(true);
+        //light2.setStaticLight(true);
+        light2.setSoftnessLength(1);
 	}
 
 	private void addSystems() {
@@ -151,6 +158,7 @@ public class Game implements ApplicationListener {
 		testBatch.setProjectionMatrix(engine.getSystem(CameraSystem.class)
 				.getCombinedMatrix());
 		rayHandler.updateAndRender();
+		
 		//
 		// testBatch.begin();
 		// testBatch.draw(testTex, 0, 0);

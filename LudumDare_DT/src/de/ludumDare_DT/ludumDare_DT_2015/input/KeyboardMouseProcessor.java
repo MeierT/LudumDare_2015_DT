@@ -20,7 +20,6 @@ public class KeyboardMouseProcessor implements InputProcessor {
 	private void jump(boolean jump) {
 		for(Entity entity : EntityCreator.engine.getEntitiesFor(Family.all(InputComponent.class, PlayerComponent.class).get())) {
 			entity.getComponent(InputComponent.class).jump = jump;
-			System.out.println("JUMP: " + jump);
 		}
 	}
 

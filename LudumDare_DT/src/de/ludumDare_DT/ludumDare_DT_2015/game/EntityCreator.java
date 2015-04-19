@@ -130,4 +130,49 @@ public class EntityCreator {
 		engine.addEntity(entity);
 		return entity;
 	}
+	
+	public static Entity createEnemy(float x, float y) {
+		Entity entity = engine.createEntity();
+		
+		/* Texture */
+		TextureComponent textureComponent = engine.createComponent(TextureComponent.class);
+		
+		textureComponent.texture = new TextureRegion(new Texture("resources/images/Enemy1_64pix.png"));
+		
+		entity.add(textureComponent);
+		
+		/*
+		 * PhysicsBody
+		 */
+		float width = textureComponent.texture.getRegionWidth();
+		float height = textureComponent.texture.getRegionHeight();
+		PhysicsBodyComponent physicsBody = engine
+				.createComponent(PhysicsBodyComponent.class);
+		PhysicsBodyDef bodyDef = new PhysicsBodyDef(BodyType.DynamicBody,
+				physicsSystem).fixedRotation(true).position(x, y).gravityScale(10.0f);
+
+		physicsBody.init(bodyDef, physicsSystem, entity);
+		
+		PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height / 2.0f);
+		
+		Fixture fixture = physicsBody.createFixture(fixtureDef);
+		
+		fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height / 10.0f,new Vector2(0, - height * 0.5f)).sensor(true);
+		
+		fixture = physicsBody.createFixture(fixtureDef);
+		fixture.setUserData("Jump");
+		
+		entity.add(physicsBody);
+		
+		/* Position */
+		PositionComponent positionComponent = engine.createComponent(PositionComponent.class);
+		
+		positionComponent.x = x;
+		positionComponent.y = y;
+		
+		entity.add(positionComponent);
+		
+		engine.addEntity(entity);
+		return entity;
+	}
 }

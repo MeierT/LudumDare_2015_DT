@@ -81,10 +81,17 @@ public class EntityCreator {
 		
 		Fixture fixture = physicsBody.createFixture(fixtureDef);
 		
+		/* Playerbody sensor */ 
+		fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height / 2.0f);
+		
+		fixture = physicsBody.createFixture(fixtureDef);
+		fixture.setUserData("player");
+		
+		/* Playerjump sensor */
 		fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height / 10.0f,new Vector2(0, - height * 0.5f)).sensor(true);
 		
 		fixture = physicsBody.createFixture(fixtureDef);
-		fixture.setUserData("Jump");
+		fixture.setUserData("jump");
 		
 		entity.add(physicsBody);
 		
@@ -157,10 +164,10 @@ public class EntityCreator {
 		
 		Fixture fixture = physicsBody.createFixture(fixtureDef);
 		
-		fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height / 10.0f,new Vector2(0, - height * 0.5f)).sensor(true);
+		fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height / 2.0f).sensor(true);
 		
 		fixture = physicsBody.createFixture(fixtureDef);
-		fixture.setUserData("Jump");
+		fixture.setUserData("enemy");
 		
 		entity.add(physicsBody);
 		

@@ -102,11 +102,28 @@ public class EntityCreator {
 
 		physicsBody.init(bodyDef, physicsSystem, entity);
 
-		// body
+		// Head
 		PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem)
-				.shapeCircle(height / 2.0f).category(PLAYER).mask(WORLDOBJECT);
+				.shapeCircle(height * 0.1f, new Vector2(0, height * 0.25f))
+				.friction(0).category(PLAYER).mask(WORLDOBJECT);
 
 		Fixture fixture = physicsBody.createFixture(fixtureDef);
+		fixture.setUserData(physicsBody);
+
+		// middle
+		fixtureDef = new PhysicsFixtureDef(physicsSystem)
+				.shapeBox(width * 0.2f, height * 0.6f,
+						new Vector2(0, -height * 0.1f), 0).friction(0)
+				.category(PLAYER).mask(WORLDOBJECT);
+		fixture = physicsBody.createFixture(fixtureDef);
+		fixture.setUserData(physicsBody);
+
+		// bottom
+		fixtureDef = new PhysicsFixtureDef(physicsSystem)
+				.shapeCircle(height * 0.1f, new Vector2(0, -height * 0.4f))
+				.friction(0).category(PLAYER).mask(WORLDOBJECT);
+
+		fixture = physicsBody.createFixture(fixtureDef);
 		fixture.setUserData(physicsBody);
 
 		// jumpsensor
@@ -244,7 +261,7 @@ public class EntityCreator {
 
 		// EnemyComponent
 		entity.add(engine.createComponent(EnemyComponent.class));
-		
+
 		/* Texture */
 		TextureComponent textureComponent = engine
 				.createComponent(TextureComponent.class);
@@ -270,7 +287,7 @@ public class EntityCreator {
 
 		// Body
 		PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem)
-				.shapeCircle(height / 2.0f).category(WORLDOBJECT);
+				.shapeBox(width * 0.2f, height ).category(WORLDOBJECT);
 
 		Fixture fixture = physicsBody.createFixture(fixtureDef);
 		fixture.setUserData(physicsBody);

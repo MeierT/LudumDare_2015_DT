@@ -26,12 +26,18 @@ public class MyContactListener implements ContactListener {
 		Fixture fixtureB = contact.getFixtureB();
 
 		if (fixtureA.getUserData().equals("Jump")
-				|| fixtureB.getUserData().equals("Jump")) {		
-//		if((fixtureA.getUserData().equals("enemy") && fixtureB.getUserData().equals("player")) || (fixtureA.getUserData().equals("player") && fixtureB.getUserData().equals("enemy"))) {
-//			System.out.println("TOD");
-//		}
-		/* ignore player body */
-//		if((fixtureA.getUserData().equals("jump") && !fixtureB.getUserData().equals("player")) || (!fixtureA.getUserData().equals("player") && fixtureB.getUserData().equals("jump"))) {
+				|| fixtureB.getUserData().equals("Jump")) {
+			// if((fixtureA.getUserData().equals("enemy") &&
+			// fixtureB.getUserData().equals("player")) ||
+			// (fixtureA.getUserData().equals("player") &&
+			// fixtureB.getUserData().equals("enemy"))) {
+			// System.out.println("TOD");
+			// }
+			/* ignore player body */
+			// if((fixtureA.getUserData().equals("jump") &&
+			// !fixtureB.getUserData().equals("player")) ||
+			// (!fixtureA.getUserData().equals("player") &&
+			// fixtureB.getUserData().equals("jump"))) {
 			Family family = Family.all(PlayerComponent.class).get();
 			ImmutableArray<Entity> players = EntityCreator.engine
 					.getEntitiesFor(family);
@@ -41,6 +47,7 @@ public class MyContactListener implements ContactListener {
 				if (jumpC != null) {
 					jumpC.groundContacts++;
 				}
+
 			}
 		} else {
 			PhysicsBodyComponent physicsBodyComponentA = null;
@@ -60,6 +67,7 @@ public class MyContactListener implements ContactListener {
 				Entity entityA = physicsBodyComponentA.getEntity();
 				Entity entityB = physicsBodyComponentB.getEntity();
 
+				// CHecking for the shooting stuff
 				ShootingComponent shootingA = CompMappers.shooting.get(entityA);
 				ShootingComponent shootingB = CompMappers.shooting.get(entityB);
 				if (shootingA != null ^ shootingB != null) {
@@ -69,9 +77,11 @@ public class MyContactListener implements ContactListener {
 						} else {
 							EntityCreator.engine.removeEntity(entityA);
 						}
-						EnemyComponent enemyComp = CompMappers.enemy.get(entityB);
-						if(enemyComp != null){
-							entityB.add(EntityCreator.engine.createComponent(DeathComponent.class));
+						EnemyComponent enemyComp = CompMappers.enemy
+								.get(entityB);
+						if (enemyComp != null && !CompMappers.death.has(entityB)) {
+							entityB.add(EntityCreator.engine
+									.createComponent(DeathComponent.class));
 						}
 
 					} else {
@@ -80,13 +90,26 @@ public class MyContactListener implements ContactListener {
 						} else {
 							EntityCreator.engine.removeEntity(entityB);
 						}
-						EnemyComponent enemyComp = CompMappers.enemy.get(entityA);
-						if(enemyComp != null){
-							entityA.add(EntityCreator.engine.createComponent(DeathComponent.class));
+						EnemyComponent enemyComp = CompMappers.enemy
+								.get(entityA);
+						if (enemyComp != null && !CompMappers.death.has(entityA)) {
+							entityA.add(EntityCreator.engine
+									.createComponent(DeathComponent.class));
 						}
 
 					}
+					// Checking for the Player hits Enemy stuff
+				} else if (CompMappers.player.has(entityA)
+						^ CompMappers.player.has(entityB)
+						&& (CompMappers.enemy.has(entityA))
+						^ CompMappers.enemy.has(entityB)) {
+
+					Entity player = CompMappers.player.has(entityA) ? entityA
+							: entityB;
+					player.add(EntityCreator.engine.createComponent(DeathComponent.class));
+					
 				}
+
 			}
 		}
 
@@ -99,8 +122,11 @@ public class MyContactListener implements ContactListener {
 
 		if (fixtureA.getUserData().equals("Jump")
 				|| fixtureB.getUserData().equals("Jump")) {
-		/* ignore player body */
-		//if((fixtureA.getUserData().equals("jump") && !fixtureB.getUserData().equals("player")) || (!fixtureA.getUserData().equals("player") && fixtureB.getUserData().equals("jump"))){
+			/* ignore player body */
+			// if((fixtureA.getUserData().equals("jump") &&
+			// !fixtureB.getUserData().equals("player")) ||
+			// (!fixtureA.getUserData().equals("player") &&
+			// fixtureB.getUserData().equals("jump"))){
 			Family family = Family.all(PlayerComponent.class).get();
 			ImmutableArray<Entity> players = EntityCreator.engine
 					.getEntitiesFor(family);

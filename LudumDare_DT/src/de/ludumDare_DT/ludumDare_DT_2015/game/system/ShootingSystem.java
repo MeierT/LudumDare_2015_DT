@@ -45,6 +45,13 @@ public class ShootingSystem extends IteratingSystem{
 			physicsBody.getBody().applyLinearImpulse(direction.scl(shooting.shotSpeed), physicsBody.getBody().getWorldCenter(), true);
 			//physicsBody.getBody().setLinearVelocity(direction.scl(shooting.shotSpeed));
 			shooting.receivedImpulse = true;
+		}else if(shooting != null){
+			if(shooting.timer > 0){
+				shooting.timer -= deltaTime;
+			}else{
+				EntityCreator.engine.removeEntity(entity);
+			}
+			
 		}
 		
 		

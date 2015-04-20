@@ -5,12 +5,10 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 import de.ludumDare_DT.ludumDare_DT_2015.game.EntityCreator;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.InputComponent;
-import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsBodyComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PlayerComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.CompMappers;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.GameConstants;
@@ -40,7 +38,7 @@ public class KeyboardMouseProcessor implements InputProcessor {
 	private void shoot(boolean toShoot, float screenX, float screenY){
 		for(Entity entity : EntityCreator.engine.getEntitiesFor(Family.all(InputComponent.class, PlayerComponent.class).get())) {
 			InputComponent inputComponent = CompMappers.input.get(entity);
-			PhysicsBodyComponent physicsBody = CompMappers.physicsBody.get(entity);
+			//PhysicsBodyComponent physicsBody = CompMappers.physicsBody.get(entity);
 			
 			/*
 			 *TODO

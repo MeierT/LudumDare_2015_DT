@@ -4,6 +4,11 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
+/**
+ * Add this to the hearts
+ * @author David
+ *
+ */
 public class ShootingComponent extends Component implements Poolable{
 	
 	public Vector2 shotDirection = new Vector2();
@@ -13,6 +18,8 @@ public class ShootingComponent extends Component implements Poolable{
 	public float bouncesLeft = 0f;
 	
 	public boolean receivedImpulse = false;
+	
+	public float timer = 20.0f;
 
 	@Override
 	public void reset() {		
@@ -20,6 +27,7 @@ public class ShootingComponent extends Component implements Poolable{
 		origin.setZero();
 		shotSpeed = bouncesLeft = 0f;
 		receivedImpulse = false;
+		timer = 20.0f;
 	}
 
 }

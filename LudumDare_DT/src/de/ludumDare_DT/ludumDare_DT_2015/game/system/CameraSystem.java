@@ -38,6 +38,7 @@ public class CameraSystem extends EntitySystem implements EntityListener {
 		super(priority);
 		camera = new OrthographicCamera();
 		resizeCameraViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		
 	}
 
 	@Override
@@ -93,6 +94,7 @@ public class CameraSystem extends EntitySystem implements EntityListener {
 	public void entityAdded(Entity entity) {
 		if (target == null) {
 			target = entity;
+			camera.update(true);
 		}
 	}
 

@@ -107,9 +107,8 @@ public class Game implements ApplicationListener {
        
 	}
 
-	private void addSystems() {
+	public void addSystems() {
 		engine.addSystem(inputSystem);
-		engine.addSystem(physicsSystem);
 
 		EntityCreator.physicsSystem = physicsSystem;
 		engine.addSystem(physicsSystem);
@@ -139,7 +138,7 @@ public class Game implements ApplicationListener {
 		LightSystem.rayHandler = new RayHandler(physicsSystem.getWorld());
         LightSystem.rayHandler.setCombinedMatrix(EntityCreator.camSystem.getCamera());
         LightSystem.rayHandler.setShadows(true);
-        LightSystem.rayHandler.setAmbientLight(0f);
+        LightSystem.rayHandler.setAmbientLight(0.5f);
 
         engine.addSystem(new LightSystem(GameConstants.PHYSICS_PRIORITY + 3));
         
@@ -156,13 +155,15 @@ public class Game implements ApplicationListener {
 	public void render() {
 
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-
+		
+		tiledMapRenderer.setView(EntityCreator.camSystem.getCamera());
+		tiledMapRenderer.render();
+		
 		engine.update(Gdx.graphics.getDeltaTime());
 
 		EntityCreator.camSystem.getCamera().update();
 
-		tiledMapRenderer.setView(EntityCreator.camSystem.getCamera());
-		tiledMapRenderer.render();
+		
 		box2DDebugRenderer.render(EntityCreator.physicsSystem.getWorld(),
 				EntityCreator.camSystem.getCamera().combined);
 

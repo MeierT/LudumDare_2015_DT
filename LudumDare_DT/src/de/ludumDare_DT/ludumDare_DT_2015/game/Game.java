@@ -9,9 +9,6 @@ import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -23,6 +20,7 @@ import de.ludumDare_DT.ludumDare_DT_2015.audio.MusicManager;
 import de.ludumDare_DT.ludumDare_DT_2015.audio.SoundManager;
 import de.ludumDare_DT.ludumDare_DT_2015.game.contactlistener.MyContactListener;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.CameraSystem;
+import de.ludumDare_DT.ludumDare_DT_2015.game.system.DeathSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.InputSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.JumpSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.LightSystem;
@@ -42,8 +40,6 @@ public class Game implements ApplicationListener {
 	/**
 	 * Testing!
 	 */
-	private SpriteBatch testBatch;
-	private Texture testTex;
 	private Box2DDebugRenderer box2DDebugRenderer;
 
 	private OrthogonalTiledMapRenderer tiledMapRenderer;
@@ -104,11 +100,6 @@ public class Game implements ApplicationListener {
 		/*
 		 * Test n stuff
 		 */
-		testBatch = new SpriteBatch();
-		testTex = new Texture("resources/images/test.jpg");
-
-		testBatch.setProjectionMatrix(EntityCreator.camSystem
-				.getCombinedMatrix());
 		
 		box2DDebugRenderer = new Box2DDebugRenderer();
 		
@@ -148,9 +139,11 @@ public class Game implements ApplicationListener {
 		LightSystem.rayHandler = new RayHandler(physicsSystem.getWorld());
         LightSystem.rayHandler.setCombinedMatrix(EntityCreator.camSystem.getCamera());
         LightSystem.rayHandler.setShadows(true);
-        LightSystem.rayHandler.setAmbientLight(0.2f);
+        LightSystem.rayHandler.setAmbientLight(0f);
 
         engine.addSystem(new LightSystem(GameConstants.PHYSICS_PRIORITY + 3));
+        
+        engine.addSystem(new DeathSystem(GameConstants.PHYSICS_PRIORITY + 4));
 	}
 
 	@Override

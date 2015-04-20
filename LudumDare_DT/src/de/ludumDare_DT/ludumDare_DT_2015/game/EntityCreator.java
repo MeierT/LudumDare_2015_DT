@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Fixture;
 
+import de.ludumDare_DT.ludumDare_DT_2015.game.components.EnemyComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.InputComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.JumpComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.LightComponent;
@@ -31,9 +32,8 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.util.PhysicsFixtureDef;
 
 /**
  * 
- * TODO: EVERYTHING
- * BEWARE, this class needs A LOT OF FIXING AND PUTTING CODE IN THE RIGHT
- * PLACES. you have been warned
+ * TODO: EVERYTHING BEWARE, this class needs A LOT OF FIXING AND PUTTING CODE IN
+ * THE RIGHT PLACES. you have been warned
  * 
  * @author David
  *
@@ -145,8 +145,8 @@ public class EntityCreator {
 		LightComponent lightCompo = engine
 				.createComponent(LightComponent.class);
 		lightCompo.light = new PointLight(LightSystem.rayHandler, 50,
-				new Color(1.0f, 1.0f, 1.0f, 0.7f), 10, x, y);
-		lightCompo.light.setContactFilter(LIGHT, (short)0, WORLDOBJECT);
+				new Color(0.2f, 0.2f, 0.2f, 1f), 10, x, y);
+		lightCompo.light.setContactFilter(LIGHT, (short) 0, WORLDOBJECT);
 		lightCompo.light.attachToBody(physicsBody.getBody());
 
 		entity.add(lightCompo);
@@ -242,6 +242,9 @@ public class EntityCreator {
 	public static Entity createEnemy(float x, float y) {
 		Entity entity = engine.createEntity();
 
+		// EnemyComponent
+		entity.add(engine.createComponent(EnemyComponent.class));
+		
 		/* Texture */
 		TextureComponent textureComponent = engine
 				.createComponent(TextureComponent.class);
@@ -263,19 +266,14 @@ public class EntityCreator {
 		PhysicsBodyDef bodyDef = new PhysicsBodyDef(BodyType.DynamicBody,
 				physicsSystem).fixedRotation(true).position(x, y)
 				.gravityScale(10.0f);
-
 		physicsBody.init(bodyDef, physicsSystem, entity);
 
+		// Body
 		PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem)
-				.shapeCircle(height / 2.0f);
+				.shapeCircle(height / 2.0f).category(WORLDOBJECT);
 
 		Fixture fixture = physicsBody.createFixture(fixtureDef);
-
-		fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(
-				height / 2.0f).sensor(true);
-
-		fixture = physicsBody.createFixture(fixtureDef);
-		fixture.setUserData("enemy");
+		fixture.setUserData(physicsBody);
 
 		entity.add(physicsBody);
 
@@ -287,6 +285,17 @@ public class EntityCreator {
 		positionComponent.y = y;
 
 		entity.add(positionComponent);
+
+		// LightComponent
+		LightComponent lightCompo = engine
+				.createComponent(LightComponent.class);
+		lightCompo.light = new PointLight(LightSystem.rayHandler, 50,
+				new Color(0.1f, 0.1f, 0.1f, 1f), 5, x, y);
+		lightCompo.light.setContactFilter(LIGHT, (short) 0, WORLDOBJECT);
+
+		lightCompo.light.attachToBody(physicsBody.getBody());
+
+		entity.add(lightCompo);
 
 		engine.addEntity(entity);
 		return entity;

@@ -10,6 +10,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
 import de.ludumDare_DT.ludumDare_DT_2015.game.EntityCreator;
+import de.ludumDare_DT.ludumDare_DT_2015.game.components.DeathComponent;
+import de.ludumDare_DT.ludumDare_DT_2015.game.components.EnemyComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.JumpComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsBodyComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PlayerComponent;
@@ -67,12 +69,20 @@ public class MyContactListener implements ContactListener {
 						} else {
 							EntityCreator.engine.removeEntity(entityA);
 						}
+						EnemyComponent enemyComp = CompMappers.enemy.get(entityB);
+						if(enemyComp != null){
+							entityB.add(EntityCreator.engine.createComponent(DeathComponent.class));
+						}
 
 					} else {
 						if (shootingB.bouncesLeft > 0) {
 							shootingB.bouncesLeft--;
 						} else {
 							EntityCreator.engine.removeEntity(entityB);
+						}
+						EnemyComponent enemyComp = CompMappers.enemy.get(entityA);
+						if(enemyComp != null){
+							entityA.add(EntityCreator.engine.createComponent(DeathComponent.class));
 						}
 
 					}

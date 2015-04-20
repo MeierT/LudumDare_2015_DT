@@ -25,9 +25,12 @@ public class MapLoader {
 	public static int mapHeight = 0;
 	public static int mapWidth = 0;
 
+	public static TiledMap currentMap;
+	
 	public static void generateWorldFromTiledMap(PooledEngine engine,
 			TiledMap map, PhysicsSystem physicsSystem, CameraSystem cameraSystem) {
-
+		currentMap = map;
+		
 		MapLayers mapLayers = map.getLayers();
 
 		for (int x = 0; x < mapLayers.getCount(); x++) {

@@ -3,7 +3,6 @@ package de.ludumDare_DT.ludumDare_DT_2015.game;
 import org.lwjgl.opengl.GL11;
 
 import box2dLight.ConeLight;
-import box2dLight.PointLight;
 import box2dLight.RayHandler;
 
 import com.badlogic.ashley.core.PooledEngine;
@@ -16,7 +15,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -27,6 +25,7 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.contactlistener.MyContactListener;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.CameraSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.InputSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.JumpSystem;
+import de.ludumDare_DT.ludumDare_DT_2015.game.system.LightSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.MovementSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.PhysicsSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.ShootingSystem;
@@ -85,23 +84,6 @@ public class Game implements ApplicationListener {
 
 		/* Systems */
 		this.addSystems();
-	@Override
-	public void create() {
-		// creating the Ashley engine
-		engine = new PooledEngine();
-		EntityCreator.engine = engine;
-
-		// initialise Box2D
-		Box2D.init();
-
-		/* Manager */
-		inputManager = new InputManager();
-		soundManager = new SoundManager();
-		musicManager = new MusicManager();
-		assetManager = new AssetManager();
-
-		/* Systems */
-		this.addSystems();
 		
 		EntityCreator.physicsSystem.getWorld().setContactListener(new MyContactListener());
 
@@ -129,12 +111,12 @@ public class Game implements ApplicationListener {
 				.getCombinedMatrix());
 		
 		box2DDebugRenderer = new Box2DDebugRenderer();
-		rayHandler = new RayHandler(physicsSystem.getWorld());
-        rayHandler.setCombinedMatrix(EntityCreator.camSystem.getCamera());
-        rayHandler.setShadows(true);
-        rayHandler.setAmbientLight(0.3f,0.3f,0.3f,0.5f);
+		LightSystem.rayHandler = new RayHandler(physicsSystem.getWorld());
+        LightSystem.rayHandler.setCombinedMatrix(EntityCreator.camSystem.getCamera());
+        LightSystem.rayHandler.setShadows(true);
+        LightSystem.rayHandler.setAmbientLight(0.3f,0.3f,0.3f,0.5f);
 
-        light2 = new ConeLight(rayHandler,100,Color.BLUE, 20, 5, 5, 270.0f, 45.0f);
+        light2 = new ConeLight(LightSystem.rayHandler,100,Color.BLUE, 20, 5, 5, 270.0f, 45.0f);
         //light2.setXray(true);
         //light2.setStaticLight(true);
         light2.setSoftnessLength(1);
@@ -192,7 +174,7 @@ public class Game implements ApplicationListener {
 
 //		testBatch.setProjectionMatrix(engine.getSystem(CameraSystem.class)
 //				.getCombinedMatrix());
-		rayHandler.updateAndRender();
+		LightSystem.rayHandler.updateAndRender();
 		
 		//
 		 

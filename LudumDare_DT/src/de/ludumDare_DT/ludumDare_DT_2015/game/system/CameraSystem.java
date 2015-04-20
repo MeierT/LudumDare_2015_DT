@@ -77,6 +77,7 @@ public class CameraSystem extends EntitySystem implements EntityListener {
 				this.viewpoint.y = y;
 				
 				setCameraPosition(x, y);
+				
 			}
 		}
 	}
@@ -110,7 +111,7 @@ public class CameraSystem extends EntitySystem implements EntityListener {
 	public void resizeCameraViewport(int width, int height) {
 		camera.setToOrtho(GameConstants.YDOWN, width
 				/ GameConstants.BOX2D_SCALE, height / GameConstants.BOX2D_SCALE);
-		camera.update();
+		camera.update(true);
 	}
 
 	public OrthographicCamera getCamera() {
@@ -120,7 +121,7 @@ public class CameraSystem extends EntitySystem implements EntityListener {
 	public void setCameraPosition(float x, float y) {
 		camera.position.x = x / GameConstants.BOX2D_SCALE;
 		camera.position.y = y / GameConstants.BOX2D_SCALE;
-		camera.update();
+		camera.update(true);
 	}
 
 	public Matrix4 getCombinedMatrix() {

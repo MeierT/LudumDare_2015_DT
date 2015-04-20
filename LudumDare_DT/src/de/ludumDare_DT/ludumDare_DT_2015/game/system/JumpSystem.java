@@ -22,7 +22,7 @@ public class JumpSystem extends IteratingSystem {
 			entity.getComponent(JumpComponent.class).force = (entity.getComponent(JumpComponent.class).force - entity.getComponent(JumpComponent.class).forceDown > 0) ? entity.getComponent(JumpComponent.class).force - entity.getComponent(JumpComponent.class).forceDown : 0.0f;
 		} 
 		// Jump if true
-		System.out.println(entity.getComponent(JumpComponent.class).groundContacts > 0 && entity.getComponent(InputComponent.class).jump);
+		
 		if(entity.getComponent(JumpComponent.class).groundContacts > 0 && entity.getComponent(InputComponent.class).jump) {
 			float force = 900.0f;
 			entity.getComponent(JumpComponent.class).force = force;

@@ -23,6 +23,7 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.system.InputSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.JumpSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.MovementSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.PhysicsSystem;
+import de.ludumDare_DT.ludumDare_DT_2015.game.system.ShootingSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.TextureRenderer;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.UpdatePositionSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.GameConstants;
@@ -124,6 +125,9 @@ public class Game implements ApplicationListener {
 		CameraSystem camSystem = new CameraSystem(GameConstants.CAMERA_PRIORITY);
 		EntityCreator.camSystem = camSystem;
 		engine.addSystem(camSystem);
+		
+		// ShootingSystem
+		engine.addSystem(new ShootingSystem(GameConstants.CAMERA_PRIORITY + 1));
 		
 		/* TextureRenderer */
 		engine.addSystem(textureRenderer);

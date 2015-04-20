@@ -9,6 +9,7 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsBodyComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsModifierComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PlayerComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PositionComponent;
+import de.ludumDare_DT.ludumDare_DT_2015.game.components.ShootingComponent;
 
 /**
  * Used to map components to their entities. Always use this to retrieve a
@@ -33,5 +34,7 @@ public class CompMappers {
 			.getFor(MovementComponent.class);
 	public static final ComponentMapper<JumpComponent> jump = ComponentMapper
 			.getFor(JumpComponent.class);
+	public static final ComponentMapper<ShootingComponent> shooting = ComponentMapper
+			.getFor(ShootingComponent.class);
 
 }

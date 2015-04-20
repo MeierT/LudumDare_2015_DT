@@ -1,6 +1,7 @@
 package de.ludumDare_DT.ludumDare_DT_2015.game.components;
 
 import com.badlogic.ashley.core.Component;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 
 public class InputComponent extends Component implements Pool.Poolable {
@@ -9,13 +10,19 @@ public class InputComponent extends Component implements Pool.Poolable {
 	public float y = 0.0f;
 	
 	public boolean jump = false;
+	public boolean shoot = false;
+	
+	public float shootTimer = 0f;
+	public Vector2 shotDirection = new Vector2();
 	
 	@Override
 	public void reset() {
 		this.x = 0.0f;
 		this.y = 0.0f;
+		this.shootTimer = 0f;
 		
-		this.jump = false;
+		this.jump = shoot = false;
+		this.shotDirection.setZero();
 	}
 
 }

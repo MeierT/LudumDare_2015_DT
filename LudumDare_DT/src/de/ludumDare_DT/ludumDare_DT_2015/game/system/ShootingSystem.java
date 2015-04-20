@@ -1,32 +1,55 @@
 package de.ludumDare_DT.ludumDare_DT_2015.game.system;
 
+import javax.sound.midi.Receiver;
+
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.math.Vector2;
 
 import de.ludumDare_DT.ludumDare_DT_2015.game.EntityCreator;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.InputComponent;
+import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsBodyComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PositionComponent;
+import de.ludumDare_DT.ludumDare_DT_2015.game.components.ShootingComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.CompMappers;
 
 public class ShootingSystem extends IteratingSystem{
 
 	public ShootingSystem(int priority) {
-		super(Family.all(InputComponent.class, PositionComponent.class).get(), priority);
+		super(Family.all(PositionComponent.class, PhysicsBodyComponent.class).one(InputComponent.class, ShootingComponent.class).get(), priority);
 	}
 
 	@Override
 	protected void processEntity(Entity entity, float deltaTime) {
-		InputComponent inputComp = CompMappers.input.get(entity);
+		InputComponent input = CompMappers.input.get(entity);
 		PositionComponent position = CompMappers.position.get(entity);
-		if(inputComp.shoot && inputComp.shootTimer <= 0){
-			inputComp.shootTimer = 0.3f;
-			EntityCreator.createHeart(position.x, position.y);
-		}else if(inputComp.shoot){
-			inputComp.shootTimer -= deltaTime;
-		}else if(inputComp.shootTimer>=0){
-			inputComp.shootTimer -= deltaTime;
+		ShootingComponent shooting = CompMappers.shooting.get(entity);
+		PhysicsBodyComponent physicsBody = CompMappers.physicsBody.get(entity);
+		/*
+		 * is it the player? (does he have an input?) 
+		 */
+		if(input != null){
+			if(input.shoot && input.shootTimer <= 0){
+				//TODO make this not hardcoded
+				input.shootTimer = 0.3f;
+				EntityCreator.createHeart(physicsBody.getPosition().x, physicsBody.getPosition().y, input.shotDirection.x, input.shotDirection.y);
+
+			}else if(input.shoot){
+				input.shootTimer -= deltaTime;
+			}else if(input.shootTimer>=0){
+				input.shootTimer -= deltaTime;
+			}
+		}else if(shooting != null && !shooting.receivedImpulse){ // or is it a heart?
+			Vector2 direction = shooting.shotDirection.cpy();
+			direction.sub(shooting.origin).nor();
+			
+			
+			physicsBody.getBody().applyLinearImpulse(direction.scl(shooting.shotSpeed), physicsBody.getBody().getWorldCenter(), true);
+			//physicsBody.getBody().setLinearVelocity(direction.scl(shooting.shotSpeed));
+			shooting.receivedImpulse = true;
 		}
+		
 		
 	}
 

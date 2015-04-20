@@ -127,7 +127,7 @@ public class Game implements ApplicationListener {
 		engine.addSystem(camSystem);
 		
 		// ShootingSystem
-		engine.addSystem(new ShootingSystem(GameConstants.PHYSICS_PRIORITY + 2));
+		engine.addSystem(new ShootingSystem(GameConstants.CAMERA_PRIORITY + 1));
 		
 		/* TextureRenderer */
 		engine.addSystem(textureRenderer);

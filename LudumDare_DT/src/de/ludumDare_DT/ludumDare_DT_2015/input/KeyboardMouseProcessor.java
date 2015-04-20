@@ -2,30 +2,58 @@ package de.ludumDare_DT.ludumDare_DT_2015.input;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 import de.ludumDare_DT.ludumDare_DT_2015.game.EntityCreator;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.InputComponent;
+import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsBodyComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PlayerComponent;
+import de.ludumDare_DT.ludumDare_DT_2015.game.util.CompMappers;
+import de.ludumDare_DT.ludumDare_DT_2015.game.util.GameConstants;
 
 public class KeyboardMouseProcessor implements InputProcessor {
 	
 	private void move(float plane, float up, float down) {
 		for(Entity entity : EntityCreator.engine.getEntitiesFor(Family.all(InputComponent.class, PlayerComponent.class).get())) {
-			entity.getComponent(InputComponent.class).x += plane;
+			InputComponent inputComponent = CompMappers.input.get(entity);
+			inputComponent.x += plane;
 		}
 	}
 	
 	private void jump(boolean jump) {
 		for(Entity entity : EntityCreator.engine.getEntitiesFor(Family.all(InputComponent.class, PlayerComponent.class).get())) {
-			entity.getComponent(InputComponent.class).jump = jump;
+			InputComponent inputComponent = CompMappers.input.get(entity);
+			inputComponent.jump = jump;
 		}
 	}
 	
-	private void shoot(boolean toShoot){
+	/**
+	 * TODO
+	 * This does some important calculating between the screen coordinates and the box2d coordinates. definitely should not be here
+	 * @param toShoot
+	 * @param screenX
+	 * @param screenY
+	 */
+	private void shoot(boolean toShoot, float screenX, float screenY){
 		for(Entity entity : EntityCreator.engine.getEntitiesFor(Family.all(InputComponent.class, PlayerComponent.class).get())) {
-			entity.getComponent(InputComponent.class).shoot = toShoot;
+			InputComponent inputComponent = CompMappers.input.get(entity);
+			PhysicsBodyComponent physicsBody = CompMappers.physicsBody.get(entity);
+			
+			/*
+			 *TODO
+			 * Here happens the magic of the calculation. Should be in CameraSystem
+			 */
+			Vector3 pos = EntityCreator.camSystem.getCamera().position.cpy();
+			pos.scl(GameConstants.BOX2D_SCALE);
+			pos.sub(Gdx.graphics.getWidth()/2.0f, Gdx.graphics.getHeight()/2.0f, 0);
+
+			
+			inputComponent.shoot = toShoot;
+			inputComponent.shotDirection.set(pos.x + screenX, pos.y + Gdx.graphics.getHeight() - screenY);
 		}
 	}
 
@@ -61,19 +89,19 @@ public class KeyboardMouseProcessor implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {			
-		this.shoot(true);
+		this.shoot(true, screenX, screenY);
 		return true;
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		this.shoot(false);
+		this.shoot(false, screenX, screenY);
 		return false;
 	}
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
+		this.shoot(true, screenX, screenY);
 		return false;
 	}
 

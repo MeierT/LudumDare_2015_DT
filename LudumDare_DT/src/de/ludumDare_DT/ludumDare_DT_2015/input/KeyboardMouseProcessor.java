@@ -17,9 +17,10 @@ public class KeyboardMouseProcessor implements InputProcessor {
 		}
 	}
 	
-	private void jump() {
+	private void jump(boolean jump) {
 		for(Entity entity : EntityCreator.engine.getEntitiesFor(Family.all(InputComponent.class, PlayerComponent.class).get())) {
-			entity.getComponent(InputComponent.class).jump = true;;
+			entity.getComponent(InputComponent.class).jump = jump;
+			System.out.println("JUMP: " + jump);
 		}
 	}
 
@@ -29,7 +30,7 @@ public class KeyboardMouseProcessor implements InputProcessor {
 		switch(keycode) {
 			case Input.Keys.A: plane -= 1.0f; break;
 			case Input.Keys.D: plane += 1.0f; break;
-			case Input.Keys.W: this.jump(); break;
+			case Input.Keys.W: this.jump(true); break;
 		}
 		this.move(plane, 0.0f, 0.0f);
 		return true;
@@ -41,6 +42,7 @@ public class KeyboardMouseProcessor implements InputProcessor {
 		switch(keycode) {
 			case Input.Keys.A: plane += 1.0f; break;
 			case Input.Keys.D: plane -= 1.0f; break;
+			case Input.Keys.W: this.jump(false); break;
 		}
 		this.move(plane, 0.0f, 0.0f);
 		return true;

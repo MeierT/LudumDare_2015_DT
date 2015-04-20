@@ -2,12 +2,14 @@ package de.ludumDare_DT.ludumDare_DT_2015.game;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.Fixture;
 
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.InputComponent;
+import de.ludumDare_DT.ludumDare_DT_2015.game.components.JumpComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.MovementComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsBodyComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PlayerComponent;
@@ -58,7 +60,7 @@ public class EntityCreator {
 		/* TextureComponent */
 		TextureComponent textureComponent = engine.createComponent(TextureComponent.class);
 		
-		textureComponent.texture = new TextureRegion(new Texture("resources/images/testPlayer.png"));
+		textureComponent.texture = new TextureRegion(new Texture("resources/images/Amor2.png"));
 		
 		entity.add(textureComponent);
 				
@@ -71,13 +73,18 @@ public class EntityCreator {
 		PhysicsBodyComponent physicsBody = engine
 				.createComponent(PhysicsBodyComponent.class);
 		PhysicsBodyDef bodyDef = new PhysicsBodyDef(BodyType.DynamicBody,
-				physicsSystem).fixedRotation(true).position(x, y);
+				physicsSystem).fixedRotation(true).position(x, y).gravityScale(10.0f);
 
 		physicsBody.init(bodyDef, physicsSystem, entity);
 		
 		PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height / 2.0f);
 		
-		physicsBody.createFixture(fixtureDef);
+		Fixture fixture = physicsBody.createFixture(fixtureDef);
+		
+		fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height / 10.0f,new Vector2(0, - height * 0.5f)).sensor(true);
+		
+		fixture = physicsBody.createFixture(fixtureDef);
+		fixture.setUserData("Jump");
 		
 		entity.add(physicsBody);
 		
@@ -92,11 +99,13 @@ public class EntityCreator {
 		
 		//MovementComponent
 		MovementComponent movementComponent = engine.createComponent(MovementComponent.class);
-		movementComponent.speed = 5.0f;
+		movementComponent.speed = 4.0f;
 		entity.add(movementComponent);
 		
 		//PlayerComponent 
 		entity.add(engine.createComponent(PlayerComponent.class));
+		
+		entity.add(engine.createComponent(JumpComponent.class));
 		
 		engine.addEntity(entity);
 		return entity;

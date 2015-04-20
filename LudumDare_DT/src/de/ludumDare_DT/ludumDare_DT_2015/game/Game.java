@@ -23,10 +23,13 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 import de.ludumDare_DT.ludumDare_DT_2015.audio.MusicManager;
 import de.ludumDare_DT.ludumDare_DT_2015.audio.SoundManager;
+import de.ludumDare_DT.ludumDare_DT_2015.game.contactlistener.MyContactListener;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.CameraSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.InputSystem;
+import de.ludumDare_DT.ludumDare_DT_2015.game.system.JumpSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.MovementSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.PhysicsSystem;
+import de.ludumDare_DT.ludumDare_DT_2015.game.system.TextureRenderer;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.UpdatePositionSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.GameConstants;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.MapLoader;
@@ -52,9 +55,9 @@ public class Game implements ApplicationListener {
 			GameConstants.BOX2D_POSITIONS_ITERATIONS,
 			GameConstants.BOX2D_SCALE, GameConstants.PHYSICS_PRIORITY);
 	
+	private final TextureRenderer textureRenderer = new TextureRenderer(80);
 	
-	private RayHandler rayHandler;
-	private PointLight light;
+	private final JumpSystem jumpSystem = new JumpSystem(20);
 
 	/** Manager */
 	public InputManager inputManager;
@@ -81,6 +84,25 @@ public class Game implements ApplicationListener {
 
 		/* Systems */
 		this.addSystems();
+	@Override
+	public void create() {
+		// creating the Ashley engine
+		engine = new PooledEngine();
+		EntityCreator.engine = engine;
+
+		// initialise Box2D
+		Box2D.init();
+
+		/* Manager */
+		inputManager = new InputManager();
+		soundManager = new SoundManager();
+		musicManager = new MusicManager();
+		assetManager = new AssetManager();
+
+		/* Systems */
+		this.addSystems();
+		
+		EntityCreator.physicsSystem.getWorld().setContactListener(new MyContactListener());
 
 		/* Load TiledMap */
 		TiledMap map = new TmxMapLoader()
@@ -92,7 +114,10 @@ public class Game implements ApplicationListener {
 		/* MapLoader */
 		MapLoader.generateWorldFromTiledMap(engine, map, physicsSystem,
 				EntityCreator.camSystem);
-        
+		
+//		DrawUtil.batch.setTransformMatrix(engine.getSystem(CameraSystem.class).getCombinedMatrix());
+//		setProjectionMatrix(engine.getSystem(CameraSystem.class).getCombinedMatrix());
+
 		/*
 		 * Test n stuff
 		 */
@@ -120,7 +145,7 @@ public class Game implements ApplicationListener {
 
 		EntityCreator.physicsSystem = physicsSystem;
 		engine.addSystem(physicsSystem);
-		physicsSystem.setGravity(new Vector2(0, -10)); // erstmal keine gravity,
+		physicsSystem.setGravity(new Vector2(0, -30)); // erstmal keine gravity,
 
 		// add MovementSystem
 		engine.addSystem(new MovementSystem(GameConstants.PHYSICS_PRIORITY + 1));
@@ -133,6 +158,11 @@ public class Game implements ApplicationListener {
 		CameraSystem camSystem = new CameraSystem(GameConstants.CAMERA_PRIORITY);
 		EntityCreator.camSystem = camSystem;
 		engine.addSystem(camSystem);
+		
+		/* TextureRenderer */
+		engine.addSystem(textureRenderer);
+		
+		engine.addSystem(jumpSystem);
 
 	}
 
@@ -146,6 +176,7 @@ public class Game implements ApplicationListener {
 	public void render() {
 
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+
 		engine.update(Gdx.graphics.getDeltaTime());
 
 		EntityCreator.camSystem.getCamera().update();
@@ -155,14 +186,12 @@ public class Game implements ApplicationListener {
 		box2DDebugRenderer.render(EntityCreator.physicsSystem.getWorld(),
 				EntityCreator.camSystem.getCamera().combined);
 
-		testBatch.setProjectionMatrix(engine.getSystem(CameraSystem.class)
-				.getCombinedMatrix());
+//		testBatch.setProjectionMatrix(engine.getSystem(CameraSystem.class)
+//				.getCombinedMatrix());
 		rayHandler.updateAndRender();
 		
 		//
-		// testBatch.begin();
-		// testBatch.draw(testTex, 0, 0);
-		// testBatch.end();
+		 
 	}
 
 	@Override

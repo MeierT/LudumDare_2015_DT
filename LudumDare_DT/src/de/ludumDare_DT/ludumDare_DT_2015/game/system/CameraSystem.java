@@ -8,6 +8,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Vector2;
 
 import de.ludumDare_DT.ludumDare_DT_2015.game.EntityCreator;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PlayerComponent;
@@ -30,6 +31,8 @@ public class CameraSystem extends EntitySystem implements EntityListener {
 	private Entity target;
 
 	private OrthographicCamera camera;
+	
+	public Vector2 viewpoint = new Vector2();
 
 	public CameraSystem(int priority) {
 		super(priority);
@@ -70,6 +73,8 @@ public class CameraSystem extends EntitySystem implements EntityListener {
 				else {
 					y = posComp.y;
 				}
+				this.viewpoint.x = x;
+				this.viewpoint.y = y;
 				
 				setCameraPosition(x, y);
 			}

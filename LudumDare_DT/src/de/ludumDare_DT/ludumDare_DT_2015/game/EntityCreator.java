@@ -29,13 +29,22 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.util.GameConstants;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.PhysicsBodyDef;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.PhysicsFixtureDef;
 
+/**
+ * 
+ * TODO: EVERYTHING
+ * BEWARE, this class needs A LOT OF FIXING AND PUTTING CODE IN THE RIGHT
+ * PLACES. you have been warned
+ * 
+ * @author David
+ *
+ */
 public class EntityCreator {
 	public static PooledEngine engine;
 	public static PhysicsSystem physicsSystem;
 	public static CameraSystem camSystem;
 	public static LightSystem lightSystem;
 
-	public static short EVERYTHING = 0xFFF;
+	public static short LIGHT = 0x008;
 	public static short WORLDOBJECT = 0x002;
 	public static short HEARTH = 0x004;
 	public static short PLAYER = 0x006;
@@ -76,14 +85,15 @@ public class EntityCreator {
 
 		textureComponent.texture = new TextureRegion(new Texture(
 				"resources/images/Amor2.png"));
-
+		textureComponent.width = textureComponent.texture.getRegionWidth();
+		textureComponent.height = textureComponent.texture.getRegionHeight();
 		entity.add(textureComponent);
 
 		/*
 		 * PhysicsBody
 		 */
-		float width = textureComponent.texture.getRegionWidth();
-		float height = textureComponent.texture.getRegionHeight();
+		float width = textureComponent.width;
+		float height = textureComponent.height;
 		PhysicsBodyComponent physicsBody = engine
 				.createComponent(PhysicsBodyComponent.class);
 		PhysicsBodyDef bodyDef = new PhysicsBodyDef(BodyType.DynamicBody,
@@ -128,7 +138,18 @@ public class EntityCreator {
 		// PlayerComponent
 		entity.add(engine.createComponent(PlayerComponent.class));
 
+		// JumpComponent
 		entity.add(engine.createComponent(JumpComponent.class));
+
+		// LightComponent
+		LightComponent lightCompo = engine
+				.createComponent(LightComponent.class);
+		lightCompo.light = new PointLight(LightSystem.rayHandler, 50,
+				new Color(1.0f, 1.0f, 1.0f, 0.7f), 10, x, y);
+		lightCompo.light.setContactFilter(LIGHT, (short)0, WORLDOBJECT);
+		lightCompo.light.attachToBody(physicsBody.getBody());
+
+		entity.add(lightCompo);
 
 		engine.addEntity(entity);
 		return entity;
@@ -146,8 +167,6 @@ public class EntityCreator {
 		positionComponent.x = x;
 		positionComponent.y = y;
 
-		
-		
 		entity.add(positionComponent);
 
 		/* Unique start point component */
@@ -167,11 +186,13 @@ public class EntityCreator {
 
 		textureComponent.texture = new TextureRegion(new Texture(
 				"resources/images/herz.png"));
+		textureComponent.width = 32;
+		textureComponent.height = 32;
 
 		entity.add(textureComponent);
 
-		float width = textureComponent.texture.getRegionWidth();
-		float height = textureComponent.texture.getRegionHeight();
+		float width = textureComponent.width;
+		float height = textureComponent.height;
 
 		// physicsBody
 		PhysicsBodyComponent physicsBody = engine
@@ -205,74 +226,113 @@ public class EntityCreator {
 		shootingComponent.bouncesLeft = 2.0f;
 		entity.add(shootingComponent);
 
+		// LightComponent
+		LightComponent lightCompo = engine
+				.createComponent(LightComponent.class);
+		lightCompo.light = new PointLight(LightSystem.rayHandler, 20,
+				new Color(1.0f, 0.0f, 0.0f, 0.7f), 1, x, y);
+		lightCompo.light.attachToBody(physicsBody.getBody());
+
+		entity.add(lightCompo);
+
 		engine.addEntity(entity);
 		return entity;
 	}
-	
+
 	public static Entity createEnemy(float x, float y) {
 		Entity entity = engine.createEntity();
-		
+
 		/* Texture */
-		TextureComponent textureComponent = engine.createComponent(TextureComponent.class);
-		
-		textureComponent.texture = new TextureRegion(new Texture("resources/images/Enemy1_64pix.png"));
-		
+		TextureComponent textureComponent = engine
+				.createComponent(TextureComponent.class);
+
+		textureComponent.texture = new TextureRegion(new Texture(
+				"resources/images/Enemy1_64pix.png"));
+		textureComponent.width = textureComponent.texture.getRegionWidth();
+		textureComponent.height = textureComponent.texture.getRegionHeight();
+
 		entity.add(textureComponent);
-		
+
 		/*
 		 * PhysicsBody
 		 */
-		float width = textureComponent.texture.getRegionWidth();
-		float height = textureComponent.texture.getRegionHeight();
+		float width = textureComponent.width;
+		float height = textureComponent.height;
 		PhysicsBodyComponent physicsBody = engine
 				.createComponent(PhysicsBodyComponent.class);
 		PhysicsBodyDef bodyDef = new PhysicsBodyDef(BodyType.DynamicBody,
-				physicsSystem).fixedRotation(true).position(x, y).gravityScale(10.0f);
+				physicsSystem).fixedRotation(true).position(x, y)
+				.gravityScale(10.0f);
 
 		physicsBody.init(bodyDef, physicsSystem, entity);
-		
-		PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height / 2.0f);
-		
+
+		PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem)
+				.shapeCircle(height / 2.0f);
+
 		Fixture fixture = physicsBody.createFixture(fixtureDef);
-		
-		fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height / 2.0f).sensor(true);
-		
+
+		fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(
+				height / 2.0f).sensor(true);
+
 		fixture = physicsBody.createFixture(fixtureDef);
 		fixture.setUserData("enemy");
-		
+
 		entity.add(physicsBody);
-		
+
 		/* Position */
-		PositionComponent positionComponent = engine.createComponent(PositionComponent.class);
-		
+		PositionComponent positionComponent = engine
+				.createComponent(PositionComponent.class);
+
 		positionComponent.x = x;
 		positionComponent.y = y;
-		
+
 		entity.add(positionComponent);
-		
+
 		engine.addEntity(entity);
 		return entity;
 	}
-	
-	public static Entity createConeLight(float x, float y) {
-        Entity entity = engine.createEntity();
-        
-        LightComponent lightCompo = engine.createComponent(LightComponent.class);
-        entity.add(lightCompo);
-        
-        ConeLight coneLight = new ConeLight(LightSystem.rayHandler, 100, Color.WHITE, 10, x, y, 270, 45);
-        
-        return entity;
-    }
-	
-	public static Entity createPointLight(float x, float y) {
-        Entity entity = engine.createEntity();
-        
-        LightComponent lightCompo = engine.createComponent(LightComponent.class);
-        entity.add(lightCompo);
-        
-        PointLight pointLight = new PointLight(LightSystem.rayHandler, 100, Color.WHITE, 10, x, y);
-        
-        return entity;
-    }
+
+	public static Entity createConeLight(float x, float y, int rays,
+			Color color, float distance, float directionDegree, float coneDegree) {
+		Entity entity = engine.createEntity();
+
+		// lightComponent
+		LightComponent lightCompo = engine
+				.createComponent(LightComponent.class);
+		lightCompo.light = new ConeLight(LightSystem.rayHandler, rays, color,
+				distance, x, y, directionDegree, coneDegree);
+		entity.add(lightCompo);
+
+		// positionComponent
+		PositionComponent position = engine
+				.createComponent(PositionComponent.class);
+		position.x = x;
+		position.y = y;
+		entity.add(position);
+
+		// ConeLight coneLight = new ConeLight(LightSystem.rayHandler, 100,
+		// Color.WHITE, 10, x, y, 270, 45);
+		return entity;
+	}
+
+	public static Entity createPointLight(float x, float y, int rays,
+			Color color, float distance) {
+		Entity entity = engine.createEntity();
+
+		// positionComponent
+		PositionComponent position = engine
+				.createComponent(PositionComponent.class);
+		position.x = x;
+		position.y = y;
+		entity.add(position);
+
+		// lightComponent
+		LightComponent lightCompo = engine
+				.createComponent(LightComponent.class);
+		lightCompo.light = new PointLight(LightSystem.rayHandler, rays, color,
+				distance, x, y);
+		entity.add(lightCompo);
+
+		return entity;
+	}
 }

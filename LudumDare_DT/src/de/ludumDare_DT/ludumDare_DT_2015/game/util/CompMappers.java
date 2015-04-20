@@ -4,12 +4,14 @@ import com.badlogic.ashley.core.ComponentMapper;
 
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.InputComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.JumpComponent;
+import de.ludumDare_DT.ludumDare_DT_2015.game.components.LightComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.MovementComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsBodyComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsModifierComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PlayerComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PositionComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.ShootingComponent;
+import de.ludumDare_DT.ludumDare_DT_2015.game.components.TextureComponent;
 
 /**
  * Used to map components to their entities. Always use this to retrieve a
@@ -36,5 +38,9 @@ public class CompMappers {
 			.getFor(JumpComponent.class);
 	public static final ComponentMapper<ShootingComponent> shooting = ComponentMapper
 			.getFor(ShootingComponent.class);
+	public static final ComponentMapper<LightComponent> light = ComponentMapper
+			.getFor(LightComponent.class);
+	public static final ComponentMapper<TextureComponent> texture = ComponentMapper
+			.getFor(TextureComponent.class);
 
 }

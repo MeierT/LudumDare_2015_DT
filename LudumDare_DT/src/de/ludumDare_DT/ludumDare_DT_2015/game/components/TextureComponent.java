@@ -7,10 +7,12 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 public class TextureComponent extends Component implements Poolable {
 
 	public TextureRegion texture = null;
+	public float width, height;
 	
 	@Override
 	public void reset() {
-		texture = null;		
+		texture = null;	
+		width = height = 0;
 	}
 
 }

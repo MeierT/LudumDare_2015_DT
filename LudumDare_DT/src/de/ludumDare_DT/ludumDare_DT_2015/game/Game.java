@@ -111,16 +111,9 @@ public class Game implements ApplicationListener {
 				.getCombinedMatrix());
 		
 		box2DDebugRenderer = new Box2DDebugRenderer();
-		LightSystem.rayHandler = new RayHandler(physicsSystem.getWorld());
-        LightSystem.rayHandler.setCombinedMatrix(EntityCreator.camSystem.getCamera());
-        LightSystem.rayHandler.setShadows(true);
-        LightSystem.rayHandler.setAmbientLight(0.8f);
+		
 
-        int offset = 4;
-        for(int i = 0; i < 10; i++){
-            EntityCreator.createConeLight(offset, 5);
-            offset += 4;
-        }
+       
 	}
 
 	private void addSystems() {
@@ -151,6 +144,13 @@ public class Game implements ApplicationListener {
 		
 		engine.addSystem(jumpSystem);
 
+		
+		LightSystem.rayHandler = new RayHandler(physicsSystem.getWorld());
+        LightSystem.rayHandler.setCombinedMatrix(EntityCreator.camSystem.getCamera());
+        LightSystem.rayHandler.setShadows(true);
+        LightSystem.rayHandler.setAmbientLight(0.2f);
+
+        engine.addSystem(new LightSystem(GameConstants.PHYSICS_PRIORITY + 3));
 	}
 
 	@Override

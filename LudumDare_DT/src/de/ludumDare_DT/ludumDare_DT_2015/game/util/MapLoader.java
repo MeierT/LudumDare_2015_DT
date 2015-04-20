@@ -69,6 +69,8 @@ public class MapLoader {
 					case "Start": 
 						EntityCreator.createStartPoint(positionX, positionY);
 						break;
+					case "Enemy":
+						EntityCreator.createEnemy(positionX, positionY);
 					default:
 						break;
 					}

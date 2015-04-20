@@ -260,7 +260,7 @@ public class EntityCreator {
         LightComponent lightCompo = engine.createComponent(LightComponent.class);
         entity.add(lightCompo);
         
-        ConeLight coneLight = new ConeLight(LightSystem.rayHandler, 1000, Color.WHITE, 10, x, y, 270, 45);
+        ConeLight coneLight = new ConeLight(LightSystem.rayHandler, 100, Color.WHITE, 10, x, y, 270, 45);
         
         return entity;
     }
@@ -271,7 +271,7 @@ public class EntityCreator {
         LightComponent lightCompo = engine.createComponent(LightComponent.class);
         entity.add(lightCompo);
         
-        PointLight pointLight = new PointLight(LightSystem.rayHandler, 1000, Color.WHITE, 10, x, y);
+        PointLight pointLight = new PointLight(LightSystem.rayHandler, 100, Color.WHITE, 10, x, y);
         
         return entity;
     }

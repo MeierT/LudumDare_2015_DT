@@ -114,12 +114,13 @@ public class Game implements ApplicationListener {
 		LightSystem.rayHandler = new RayHandler(physicsSystem.getWorld());
         LightSystem.rayHandler.setCombinedMatrix(EntityCreator.camSystem.getCamera());
         LightSystem.rayHandler.setShadows(true);
-        LightSystem.rayHandler.setAmbientLight(0.3f,0.3f,0.3f,0.5f);
+        LightSystem.rayHandler.setAmbientLight(0.8f);
 
-        light2 = new ConeLight(LightSystem.rayHandler,100,Color.BLUE, 20, 5, 5, 270.0f, 45.0f);
-        //light2.setXray(true);
-        //light2.setStaticLight(true);
-        light2.setSoftnessLength(1);
+        int offset = 4;
+        for(int i = 0; i < 10; i++){
+            EntityCreator.createConeLight(offset, 5);
+            offset += 4;
+        }
 	}
 
 	private void addSystems() {
@@ -174,6 +175,7 @@ public class Game implements ApplicationListener {
 
 //		testBatch.setProjectionMatrix(engine.getSystem(CameraSystem.class)
 //				.getCombinedMatrix());
+		LightSystem.rayHandler.setCombinedMatrix(EntityCreator.camSystem.getCombinedMatrix());
 		LightSystem.rayHandler.updateAndRender();
 		
 		//

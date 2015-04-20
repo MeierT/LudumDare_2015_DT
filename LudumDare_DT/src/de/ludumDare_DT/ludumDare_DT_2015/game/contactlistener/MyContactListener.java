@@ -24,7 +24,12 @@ public class MyContactListener implements ContactListener {
 		Fixture fixtureB = contact.getFixtureB();
 
 		if (fixtureA.getUserData().equals("Jump")
-				|| fixtureB.getUserData().equals("Jump")) {
+				|| fixtureB.getUserData().equals("Jump")) {		
+//		if((fixtureA.getUserData().equals("enemy") && fixtureB.getUserData().equals("player")) || (fixtureA.getUserData().equals("player") && fixtureB.getUserData().equals("enemy"))) {
+//			System.out.println("TOD");
+//		}
+		/* ignore player body */
+//		if((fixtureA.getUserData().equals("jump") && !fixtureB.getUserData().equals("player")) || (!fixtureA.getUserData().equals("player") && fixtureB.getUserData().equals("jump"))) {
 			Family family = Family.all(PlayerComponent.class).get();
 			ImmutableArray<Entity> players = EntityCreator.engine
 					.getEntitiesFor(family);
@@ -84,6 +89,8 @@ public class MyContactListener implements ContactListener {
 
 		if (fixtureA.getUserData().equals("Jump")
 				|| fixtureB.getUserData().equals("Jump")) {
+		/* ignore player body */
+		//if((fixtureA.getUserData().equals("jump") && !fixtureB.getUserData().equals("player")) || (!fixtureA.getUserData().equals("player") && fixtureB.getUserData().equals("jump"))){
 			Family family = Family.all(PlayerComponent.class).get();
 			ImmutableArray<Entity> players = EntityCreator.engine
 					.getEntitiesFor(family);

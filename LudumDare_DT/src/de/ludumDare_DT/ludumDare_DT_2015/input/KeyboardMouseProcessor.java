@@ -25,8 +25,7 @@ public class KeyboardMouseProcessor implements InputProcessor {
 	}
 	
 	private void jump(boolean jump) {
-		for(Entity entity : EntityCreator.engine.getEntitiesFor(Family.all(InputComponent.class, PlayerComponent.class).get())) {
-			InputComponent inputComponent = CompMappers.input.get(entity);
+		for(Entity entity : EntityCreator.engine.getEntitiesFor(Family.all(InputComponent.class, PlayerComponent.class).get())) {			InputComponent inputComponent = CompMappers.input.get(entity);
 			inputComponent.jump = jump;
 		}
 	}

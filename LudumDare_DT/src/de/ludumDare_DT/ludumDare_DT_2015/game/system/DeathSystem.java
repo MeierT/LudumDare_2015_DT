@@ -65,6 +65,7 @@ public class DeathSystem extends IteratingSystem {
 
 			} else {
 				EntityCreator.engine.removeEntity(entity);
+				EntityCreator.enemyCounter --;
 			}
 		}
 	}

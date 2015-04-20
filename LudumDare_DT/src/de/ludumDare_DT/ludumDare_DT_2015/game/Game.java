@@ -9,6 +9,7 @@ import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -29,6 +30,7 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.system.PhysicsSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.ShootingSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.TextureRenderer;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.UpdatePositionSystem;
+import de.ludumDare_DT.ludumDare_DT_2015.game.util.DrawUtil;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.GameConstants;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.MapLoader;
 import de.ludumDare_DT.ludumDare_DT_2015.input.InputManager;
@@ -41,6 +43,7 @@ public class Game implements ApplicationListener {
 	 * Testing!
 	 */
 	private Box2DDebugRenderer box2DDebugRenderer;
+	private BitmapFont font;
 
 	private OrthogonalTiledMapRenderer tiledMapRenderer;
 
@@ -50,9 +53,9 @@ public class Game implements ApplicationListener {
 			GameConstants.BOX2D_VELOCITY_ITERATIONS,
 			GameConstants.BOX2D_POSITIONS_ITERATIONS,
 			GameConstants.BOX2D_SCALE, GameConstants.PHYSICS_PRIORITY);
-	
+
 	private final TextureRenderer textureRenderer = new TextureRenderer(80);
-	
+
 	private final JumpSystem jumpSystem = new JumpSystem(20);
 
 	/** Manager */
@@ -60,7 +63,7 @@ public class Game implements ApplicationListener {
 	public static SoundManager soundManager;
 	public static MusicManager musicManager;
 	public static AssetManager assetManager;
-	
+
 	ConeLight light2;
 
 	@Override
@@ -80,8 +83,9 @@ public class Game implements ApplicationListener {
 
 		/* Systems */
 		this.addSystems();
-		
-		EntityCreator.physicsSystem.getWorld().setContactListener(new MyContactListener());
+
+		EntityCreator.physicsSystem.getWorld().setContactListener(
+				new MyContactListener());
 
 		/* Load TiledMap */
 		TiledMap map = new TmxMapLoader()
@@ -93,18 +97,18 @@ public class Game implements ApplicationListener {
 		/* MapLoader */
 		MapLoader.generateWorldFromTiledMap(engine, map, physicsSystem,
 				EntityCreator.camSystem);
-		
-//		DrawUtil.batch.setTransformMatrix(engine.getSystem(CameraSystem.class).getCombinedMatrix());
-//		setProjectionMatrix(engine.getSystem(CameraSystem.class).getCombinedMatrix());
+
+		// DrawUtil.batch.setTransformMatrix(engine.getSystem(CameraSystem.class).getCombinedMatrix());
+		// setProjectionMatrix(engine.getSystem(CameraSystem.class).getCombinedMatrix());
 
 		/*
 		 * Test n stuff
 		 */
-		
-		box2DDebugRenderer = new Box2DDebugRenderer();
-		
 
-       
+		box2DDebugRenderer = new Box2DDebugRenderer();
+
+		font = new BitmapFont();
+
 	}
 
 	public void addSystems() {
@@ -125,24 +129,24 @@ public class Game implements ApplicationListener {
 		CameraSystem camSystem = new CameraSystem(GameConstants.CAMERA_PRIORITY);
 		EntityCreator.camSystem = camSystem;
 		engine.addSystem(camSystem);
-		
+
 		// ShootingSystem
 		engine.addSystem(new ShootingSystem(GameConstants.CAMERA_PRIORITY + 1));
-		
+
 		/* TextureRenderer */
 		engine.addSystem(textureRenderer);
-		
+
 		engine.addSystem(jumpSystem);
 
-		
 		LightSystem.rayHandler = new RayHandler(physicsSystem.getWorld());
-        LightSystem.rayHandler.setCombinedMatrix(EntityCreator.camSystem.getCamera());
-        LightSystem.rayHandler.setShadows(true);
-        LightSystem.rayHandler.setAmbientLight(0.5f);
+		LightSystem.rayHandler.setCombinedMatrix(EntityCreator.camSystem
+				.getCamera());
+		LightSystem.rayHandler.setShadows(true);
+		LightSystem.rayHandler.setAmbientLight(0.0f);
 
-        engine.addSystem(new LightSystem(GameConstants.PHYSICS_PRIORITY + 3));
-        
-        engine.addSystem(new DeathSystem(GameConstants.PHYSICS_PRIORITY + 4));
+		engine.addSystem(new LightSystem(GameConstants.PHYSICS_PRIORITY + 3));
+
+		engine.addSystem(new DeathSystem(GameConstants.PHYSICS_PRIORITY + 4));
 	}
 
 	@Override
@@ -155,25 +159,33 @@ public class Game implements ApplicationListener {
 	public void render() {
 
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-		
+
 		tiledMapRenderer.setView(EntityCreator.camSystem.getCamera());
 		tiledMapRenderer.render();
-		
+
 		engine.update(Gdx.graphics.getDeltaTime());
 
 		EntityCreator.camSystem.getCamera().update();
 
-		
 		box2DDebugRenderer.render(EntityCreator.physicsSystem.getWorld(),
 				EntityCreator.camSystem.getCamera().combined);
 
-//		testBatch.setProjectionMatrix(engine.getSystem(CameraSystem.class)
-//				.getCombinedMatrix());
-		LightSystem.rayHandler.setCombinedMatrix(EntityCreator.camSystem.getCombinedMatrix());
+		// testBatch.setProjectionMatrix(engine.getSystem(CameraSystem.class)
+		// .getCombinedMatrix());
+		LightSystem.rayHandler.setCombinedMatrix(EntityCreator.camSystem
+				.getCombinedMatrix());
 		LightSystem.rayHandler.updateAndRender();
-		
+
+		// THIS DOES NOT BELONG HERE. PANIC!!!!! (#notimeleft)
+		DrawUtil.batch.begin();
+		font.draw(DrawUtil.batch, "Demon-girls without love: "
+				+ EntityCreator.enemyCounter,
+				EntityCreator.camSystem.getCamera().position.x,
+				EntityCreator.camSystem.getCamera().position.y);
+		DrawUtil.batch.end();
+
 		//
-		 
+
 	}
 
 	@Override

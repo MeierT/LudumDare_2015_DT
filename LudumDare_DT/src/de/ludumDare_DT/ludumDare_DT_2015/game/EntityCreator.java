@@ -48,6 +48,9 @@ public class EntityCreator {
 	public static short WORLDOBJECT = 0x002;
 	public static short HEARTH = 0x004;
 	public static short PLAYER = 0x006;
+	
+	
+	public static int enemyCounter = 0;
 
 	public static Entity createFloorTile(float x, float y) {
 		Entity entity = engine.createEntity();
@@ -259,6 +262,8 @@ public class EntityCreator {
 	public static Entity createEnemy(float x, float y) {
 		Entity entity = engine.createEntity();
 
+		enemyCounter++;
+		
 		// EnemyComponent
 		entity.add(engine.createComponent(EnemyComponent.class));
 

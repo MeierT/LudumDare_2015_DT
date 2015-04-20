@@ -26,6 +26,7 @@ public class MapLoader {
 	public static void generateWorldFromTiledMap(PooledEngine engine,
 			TiledMap map, PhysicsSystem physicsSystem, CameraSystem cameraSystem) {
 		currentMap = map;
+		EntityCreator.enemyCounter  = 0;
 		
 		MapLayers mapLayers = map.getLayers();
 

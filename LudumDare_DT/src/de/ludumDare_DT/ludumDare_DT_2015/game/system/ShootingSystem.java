@@ -1,7 +1,5 @@
 package de.ludumDare_DT.ludumDare_DT_2015.game.system;
 
-import javax.sound.midi.Receiver;
-
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
@@ -23,7 +21,6 @@ public class ShootingSystem extends IteratingSystem{
 	@Override
 	protected void processEntity(Entity entity, float deltaTime) {
 		InputComponent input = CompMappers.input.get(entity);
-		PositionComponent position = CompMappers.position.get(entity);
 		ShootingComponent shooting = CompMappers.shooting.get(entity);
 		PhysicsBodyComponent physicsBody = CompMappers.physicsBody.get(entity);
 		/*

@@ -178,10 +178,19 @@ public class Game implements ApplicationListener {
 
 		// THIS DOES NOT BELONG HERE. PANIC!!!!! (#notimeleft)
 		DrawUtil.batch.begin();
-		font.draw(DrawUtil.batch, "Demon-girls without love: "
-				+ EntityCreator.enemyCounter,
-				EntityCreator.camSystem.getCamera().position.x,
-				EntityCreator.camSystem.getCamera().position.y);
+		if (EntityCreator.enemyCounter > 0) {
+			font.draw(DrawUtil.batch, "Demon-girls without love: "
+					+ EntityCreator.enemyCounter,
+					EntityCreator.camSystem.getCamera().position.x,
+					EntityCreator.camSystem.getCamera().position.y);
+		} else {
+			font.draw(
+					DrawUtil.batch,
+					"Hey, you really did it! THANKS FOR PLAYING (this really alpha version of a game -.-)",
+					EntityCreator.camSystem.getCamera().position.x,
+					EntityCreator.camSystem.getCamera().position.y);
+		}
+
 		DrawUtil.batch.end();
 
 		//

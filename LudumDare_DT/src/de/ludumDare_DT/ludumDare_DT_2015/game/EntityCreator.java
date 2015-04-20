@@ -1,7 +1,11 @@
 package de.ludumDare_DT.ludumDare_DT_2015.game;
 
+import box2dLight.ConeLight;
+import box2dLight.PointLight;
+
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -10,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.InputComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.JumpComponent;
+import de.ludumDare_DT.ludumDare_DT_2015.game.components.LightComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.MovementComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsBodyComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PlayerComponent;
@@ -17,6 +22,7 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.components.PositionComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.StartPointComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.TextureComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.CameraSystem;
+import de.ludumDare_DT.ludumDare_DT_2015.game.system.LightSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.PhysicsSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.GameConstants;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.PhysicsBodyDef;
@@ -26,6 +32,7 @@ public class EntityCreator {
 	public static PooledEngine engine;
 	public static PhysicsSystem physicsSystem;
 	public static CameraSystem camSystem;
+	public static LightSystem lightSystem;
 	
 	public static Entity createFloorTile(float x, float y){
 		Entity entity = engine.createEntity();
@@ -132,4 +139,26 @@ public class EntityCreator {
 		engine.addEntity(entity);
 		return entity;
 	}
+	
+	public static Entity createConeLight(float x, float y) {
+        Entity entity = engine.createEntity();
+        
+        LightComponent lightCompo = engine.createComponent(LightComponent.class);
+        entity.add(lightCompo);
+        
+        ConeLight coneLight = new ConeLight(LightSystem.rayHandler, 1000, Color.WHITE, 10, x, y, 270, 45);
+        
+        return entity;
+    }
+	
+	public static Entity createPointLight(float x, float y) {
+        Entity entity = engine.createEntity();
+        
+        LightComponent lightCompo = engine.createComponent(LightComponent.class);
+        entity.add(lightCompo);
+        
+        PointLight pointLight = new PointLight(LightSystem.rayHandler, 1000, Color.WHITE, 10, x, y);
+        
+        return entity;
+    }
 }

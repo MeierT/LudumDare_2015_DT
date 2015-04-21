@@ -5,6 +5,8 @@ import box2dLight.PointLight;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -68,7 +70,7 @@ public class EntityCreator {
 		physicsBody.init(bodyDef, physicsSystem, entity);
 
 		PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem)
-				.shapeBox(width, height).category(WORLDOBJECT);
+				.shapeBox(width, height).category(WORLDOBJECT).restitution(0);
 
 		Fixture fixture = physicsBody.createFixture(fixtureDef);
 		fixture.setUserData(physicsBody);
@@ -86,8 +88,8 @@ public class EntityCreator {
 		TextureComponent textureComponent = engine
 				.createComponent(TextureComponent.class);
 
-		textureComponent.texture = new TextureRegion(new Texture(
-				"resources/images/Amor2.png"));
+		textureComponent.texture = new TextureRegion(new Texture("src/main/resources/images/Amor2.png"
+				));
 		textureComponent.width = textureComponent.texture.getRegionWidth();
 		textureComponent.height = textureComponent.texture.getRegionHeight();
 		entity.add(textureComponent);
@@ -107,24 +109,24 @@ public class EntityCreator {
 
 		// Head
 		PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem)
-				.shapeCircle(height * 0.1f, new Vector2(0, height * 0.25f))
-				.friction(0).category(PLAYER).mask(WORLDOBJECT);
+				.shapeCircle(height * 0.22f, new Vector2(0, height * 0.25f))
+				.friction(0).restitution(0).category(PLAYER).mask(WORLDOBJECT);
 
 		Fixture fixture = physicsBody.createFixture(fixtureDef);
 		fixture.setUserData(physicsBody);
 
 		// middle
 		fixtureDef = new PhysicsFixtureDef(physicsSystem)
-				.shapeBox(width * 0.2f, height * 0.6f,
-						new Vector2(0, -height * 0.1f), 0).friction(0)
+				.shapeBox(width * 0.4f, height * 0.5f,
+						new Vector2(0, -height * 0.0f), 0).friction(0).restitution(0)
 				.category(PLAYER).mask(WORLDOBJECT);
 		fixture = physicsBody.createFixture(fixtureDef);
 		fixture.setUserData(physicsBody);
 
 		// bottom
 		fixtureDef = new PhysicsFixtureDef(physicsSystem)
-				.shapeCircle(height * 0.1f, new Vector2(0, -height * 0.4f))
-				.friction(0).category(PLAYER).mask(WORLDOBJECT);
+				.shapeCircle(height * 0.22f, new Vector2(0, -height * 0.25f))
+				.friction(0).restitution(0).category(PLAYER).mask(WORLDOBJECT);
 
 		fixture = physicsBody.createFixture(fixtureDef);
 		fixture.setUserData(physicsBody);
@@ -164,7 +166,7 @@ public class EntityCreator {
 		// LightComponent
 		LightComponent lightCompo = engine
 				.createComponent(LightComponent.class);
-		lightCompo.light = new PointLight(LightSystem.rayHandler, 50,
+		lightCompo.light = new PointLight(LightSystem.rayHandler, 200,
 				new Color(0.2f, 0.2f, 0.2f, 1f), 10, x, y);
 		lightCompo.light.setContactFilter(LIGHT, (short) 0, WORLDOBJECT);
 		lightCompo.light.attachToBody(physicsBody.getBody());
@@ -204,8 +206,8 @@ public class EntityCreator {
 		TextureComponent textureComponent = engine
 				.createComponent(TextureComponent.class);
 
-		textureComponent.texture = new TextureRegion(new Texture(
-				"resources/images/herz.png"));
+		textureComponent.texture = new TextureRegion(new Texture(new FileHandle("src/main/resources/images/herz.png")
+				));
 		textureComponent.width = 32;
 		textureComponent.height = 32;
 
@@ -271,10 +273,12 @@ public class EntityCreator {
 		TextureComponent textureComponent = engine
 				.createComponent(TextureComponent.class);
 
-		textureComponent.texture = new TextureRegion(new Texture(
-				"resources/images/Enemy1_64pix.png"));
-		textureComponent.width = textureComponent.texture.getRegionWidth();
-		textureComponent.height = textureComponent.texture.getRegionHeight();
+		textureComponent.texture = new TextureRegion(new Texture(new FileHandle("src/main/resources/images/Enemy1_64pix.png")
+				));
+//		textureComponent.width = 64;
+//		textureComponent.height = 64;
+		textureComponent.width = textureComponent.texture.getRegionWidth() * 1.1f;
+		textureComponent.height = textureComponent.texture.getRegionHeight() * 1.1f;
 
 		entity.add(textureComponent);
 
@@ -292,7 +296,7 @@ public class EntityCreator {
 
 		// Body
 		PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem)
-				.shapeBox(width * 0.2f, height ).category(WORLDOBJECT);
+				.shapeBox(width * 0.2f, height  ).category(WORLDOBJECT);
 
 		Fixture fixture = physicsBody.createFixture(fixtureDef);
 		fixture.setUserData(physicsBody);

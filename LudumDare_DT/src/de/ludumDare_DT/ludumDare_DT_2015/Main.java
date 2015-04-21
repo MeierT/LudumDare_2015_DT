@@ -8,9 +8,9 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.Game;
 public class Main {
 	public static void main(String[] args) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.title = "LudumDare_DT_2015";
-        config.width = 800;
-        config.height = 480;
+        config.title = "Kiss 'em all!?";
+        config.width = 1024;
+        config.height = 576;
         new LwjglApplication(new Game(), config);
     }
 }

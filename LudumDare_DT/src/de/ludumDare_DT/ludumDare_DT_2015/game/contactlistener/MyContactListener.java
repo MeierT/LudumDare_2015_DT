@@ -79,7 +79,8 @@ public class MyContactListener implements ContactListener {
 						}
 						EnemyComponent enemyComp = CompMappers.enemy
 								.get(entityB);
-						if (enemyComp != null && !CompMappers.death.has(entityB)) {
+						if (enemyComp != null
+								&& !CompMappers.death.has(entityB)) {
 							entityB.add(EntityCreator.engine
 									.createComponent(DeathComponent.class));
 						}
@@ -92,7 +93,8 @@ public class MyContactListener implements ContactListener {
 						}
 						EnemyComponent enemyComp = CompMappers.enemy
 								.get(entityA);
-						if (enemyComp != null && !CompMappers.death.has(entityA)) {
+						if (enemyComp != null
+								&& !CompMappers.death.has(entityA)) {
 							entityA.add(EntityCreator.engine
 									.createComponent(DeathComponent.class));
 						}
@@ -106,8 +108,11 @@ public class MyContactListener implements ContactListener {
 
 					Entity player = CompMappers.player.has(entityA) ? entityA
 							: entityB;
-					player.add(EntityCreator.engine.createComponent(DeathComponent.class));
-					
+					if (!CompMappers.death.has(player)) {
+						player.add(EntityCreator.engine
+								.createComponent(DeathComponent.class));
+					}
+
 				}
 
 			}

@@ -43,7 +43,6 @@ public class Game implements ApplicationListener {
 	 * Testing!
 	 */
 	private Box2DDebugRenderer box2DDebugRenderer;
-	private BitmapFont font;
 
 	private OrthogonalTiledMapRenderer tiledMapRenderer;
 
@@ -89,7 +88,7 @@ public class Game implements ApplicationListener {
 
 		/* Load TiledMap */
 		TiledMap map = new TmxMapLoader()
-				.load("resources/tilesets/example.tmx");
+				.load("src/main/resources/tilesets/example.tmx");
 
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(map,
 				1.0f / GameConstants.BOX2D_SCALE);
@@ -107,7 +106,6 @@ public class Game implements ApplicationListener {
 
 		box2DDebugRenderer = new Box2DDebugRenderer();
 
-		font = new BitmapFont();
 
 	}
 
@@ -151,8 +149,7 @@ public class Game implements ApplicationListener {
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-
+		EntityCreator.camSystem.resizeCameraViewport(width, height);
 	}
 
 	@Override
@@ -167,8 +164,10 @@ public class Game implements ApplicationListener {
 
 		EntityCreator.camSystem.getCamera().update();
 
-		box2DDebugRenderer.render(EntityCreator.physicsSystem.getWorld(),
+		
+		 /* box2DDebugRenderer.render(EntityCreator.physicsSystem.getWorld(),
 				EntityCreator.camSystem.getCamera().combined);
+			*/	
 
 		// testBatch.setProjectionMatrix(engine.getSystem(CameraSystem.class)
 		// .getCombinedMatrix());
@@ -179,12 +178,12 @@ public class Game implements ApplicationListener {
 		// THIS DOES NOT BELONG HERE. PANIC!!!!! (#notimeleft)
 		DrawUtil.batch.begin();
 		if (EntityCreator.enemyCounter > 0) {
-			font.draw(DrawUtil.batch, "Demon-girls without love: "
+			DrawUtil.font.draw(DrawUtil.batch, "Demon-girls without a kiss: "
 					+ EntityCreator.enemyCounter,
 					EntityCreator.camSystem.getCamera().position.x,
 					EntityCreator.camSystem.getCamera().position.y);
 		} else {
-			font.draw(
+			DrawUtil.font.draw(
 					DrawUtil.batch,
 					"Hey, you really did it! THANKS FOR PLAYING (this really alpha version of a game -.-)",
 					EntityCreator.camSystem.getCamera().position.x,

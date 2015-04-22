@@ -107,7 +107,7 @@ public class EntityCreator {
 
 		// Head
 		PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem)
-				.shapeCircle(height * 0.1f, new Vector2(0, height * 0.25f))
+				.shapeCircle(height * 0.12f, new Vector2(0, height * 0.25f))
 				.friction(0).category(PLAYER).mask(WORLDOBJECT);
 
 		Fixture fixture = physicsBody.createFixture(fixtureDef);
@@ -123,7 +123,7 @@ public class EntityCreator {
 
 		// bottom
 		fixtureDef = new PhysicsFixtureDef(physicsSystem)
-				.shapeCircle(height * 0.1f, new Vector2(0, -height * 0.4f))
+				.shapeCircle(height * 0.12f, new Vector2(0, -height * 0.4f))
 				.friction(0).category(PLAYER).mask(WORLDOBJECT);
 
 		fixture = physicsBody.createFixture(fixtureDef);
@@ -164,7 +164,7 @@ public class EntityCreator {
 		// LightComponent
 		LightComponent lightCompo = engine
 				.createComponent(LightComponent.class);
-		lightCompo.light = new PointLight(LightSystem.rayHandler, 50,
+		lightCompo.light = new PointLight(LightSystem.rayHandler, 200,
 				new Color(0.2f, 0.2f, 0.2f, 1f), 10, x, y);
 		lightCompo.light.setContactFilter(LIGHT, (short) 0, WORLDOBJECT);
 		lightCompo.light.attachToBody(physicsBody.getBody());

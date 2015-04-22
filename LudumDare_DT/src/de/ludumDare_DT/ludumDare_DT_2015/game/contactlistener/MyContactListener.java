@@ -106,7 +106,10 @@ public class MyContactListener implements ContactListener {
 
 					Entity player = CompMappers.player.has(entityA) ? entityA
 							: entityB;
-					player.add(EntityCreator.engine.createComponent(DeathComponent.class));
+					if(!CompMappers.death.has(player)){
+						player.add(EntityCreator.engine.createComponent(DeathComponent.class));
+					}
+					
 					
 				}
 

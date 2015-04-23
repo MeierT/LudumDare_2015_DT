@@ -18,7 +18,7 @@ public class LightSystem extends EntitySystem {
 	@Override
 	public void update(float deltaTime) {
 		rayHandler.setCombinedMatrix(EntityCreator.camSystem
-				.getCombinedMatrix());
+				.getCamera().combined);
 		rayHandler.updateAndRender();
 		super.update(deltaTime);
 	}

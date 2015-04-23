@@ -142,7 +142,7 @@ public class Game implements ApplicationListener {
 		LightSystem.rayHandler.setCombinedMatrix(EntityCreator.camSystem
 				.getCamera());
 		LightSystem.rayHandler.setShadows(true);
-		LightSystem.rayHandler.setAmbientLight(0.0f);
+		LightSystem.rayHandler.setAmbientLight(1.0f);
 
 		engine.addSystem(new LightSystem(GameConstants.PHYSICS_PRIORITY + 3));
 
@@ -151,8 +151,7 @@ public class Game implements ApplicationListener {
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-
+		//EntityCreator.camSystem.resizeCameraViewport(width, height);
 	}
 
 	@Override
@@ -170,8 +169,6 @@ public class Game implements ApplicationListener {
 		box2DDebugRenderer.render(EntityCreator.physicsSystem.getWorld(),
 				EntityCreator.camSystem.getCamera().combined);
 
-		// testBatch.setProjectionMatrix(engine.getSystem(CameraSystem.class)
-		// .getCombinedMatrix());
 		LightSystem.rayHandler.setCombinedMatrix(EntityCreator.camSystem
 				.getCombinedMatrix());
 		LightSystem.rayHandler.updateAndRender();
@@ -192,9 +189,6 @@ public class Game implements ApplicationListener {
 		}
 
 		DrawUtil.batch.end();
-
-		//
-
 	}
 
 	@Override

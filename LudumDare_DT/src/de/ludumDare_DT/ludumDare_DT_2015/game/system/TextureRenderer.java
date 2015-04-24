@@ -68,11 +68,11 @@ public class TextureRenderer extends IteratingSystem {
 		transX = position.x - transX - (texComp.width / 2);
 		transY = position.y - transY - (texComp.height / 2);
 
-		 if (CompMappers.player.has(entity)) {
-		  System.out.println(camera.viewportWidth/2);
-		 // System.out.println(scaleX);
-		 // System.out.println("camera: " + camera.position);
-		 }
+//		 if (CompMappers.player.has(entity)) {
+//		  System.out.println(camera.viewportWidth/2);
+//		 // System.out.println(scaleX);
+//		 // System.out.println("camera: " + camera.position);
+//		 }
 
 		DrawUtil.batch.draw(texComp.texture, transX, transY, texComp.width,
 				texComp.height);

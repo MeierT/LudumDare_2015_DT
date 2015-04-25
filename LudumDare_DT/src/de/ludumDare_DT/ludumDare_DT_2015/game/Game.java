@@ -93,7 +93,7 @@ public class Game implements ApplicationListener {
 
 		/* Load TiledMap */
 		TiledMap map = new TmxMapLoader()
-				.load("src/main/resources/tilesets/example.tmx");
+				.load("/tilesets/example.tmx");
 
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(map,
 				1.0f / GameConstants.BOX2D_SCALE);

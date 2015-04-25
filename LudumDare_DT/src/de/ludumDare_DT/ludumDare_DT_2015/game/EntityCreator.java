@@ -88,7 +88,7 @@ public class EntityCreator {
 				.createComponent(TextureComponent.class);
 
 		textureComponent.texture = new TextureRegion(new Texture(
-				"/images/Amor2.png"));
+				"images/Amor2.png"));
 		textureComponent.width = textureComponent.texture.getRegionWidth();
 		textureComponent.height = textureComponent.texture.getRegionHeight();
 		entity.add(textureComponent);
@@ -206,7 +206,7 @@ public class EntityCreator {
 				.createComponent(TextureComponent.class);
 
 		textureComponent.texture = new TextureRegion(new Texture(
-				"/images/herz.png"));
+				"images/herz.png"));
 		textureComponent.width = 32;
 		textureComponent.height = 32;
 
@@ -272,7 +272,7 @@ public class EntityCreator {
 				.createComponent(TextureComponent.class);
 
 		textureComponent.texture = new TextureRegion(new Texture(
-				"/images/Enemy1_64pix.png"));
+				"images/Enemy1_64pix.png"));
 		textureComponent.width = textureComponent.texture.getRegionWidth();
 		textureComponent.height = textureComponent.texture.getRegionHeight();
 

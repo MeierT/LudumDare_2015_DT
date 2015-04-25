@@ -10,12 +10,14 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.components.MovementComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsBodyComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.CompMappers;
 
-public class MovementSystem extends IteratingSystem {
+public class MovementSystem extends IteratingProfilingSystem {
 
 
 	public MovementSystem(int priority) {
 		super(Family.all(MovementComponent.class , PhysicsBodyComponent.class)
 				.get(), priority);
+		profiler.setMessage("movement-");
+		//setProfiling(true);
 	}
 
 	@Override

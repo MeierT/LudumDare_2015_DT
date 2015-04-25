@@ -14,12 +14,14 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.util.CompMappers;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.DrawUtil;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.GameConstants;
 
-public class TextureRenderer extends IteratingSystem {
+public class TextureRenderer extends IteratingProfilingSystem {
 
 	public TextureRenderer(int priority) {
 		super(
 				Family.all(TextureComponent.class, PositionComponent.class)
 						.get(), priority);
+		profiler.setMessage("texture-");
+		//setProfiling(true);
 	}
 
 	@Override

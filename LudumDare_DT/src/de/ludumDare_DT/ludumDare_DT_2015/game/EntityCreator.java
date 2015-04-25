@@ -1,6 +1,7 @@
 package de.ludumDare_DT.ludumDare_DT_2015.game;
 
 import box2dLight.ConeLight;
+import box2dLight.Light;
 import box2dLight.PointLight;
 
 import com.badlogic.ashley.core.Entity;
@@ -164,8 +165,8 @@ public class EntityCreator {
 		// LightComponent
 		LightComponent lightCompo = engine
 				.createComponent(LightComponent.class);
-		lightCompo.light = new PointLight(LightSystem.rayHandler, 200,
-				new Color(0.2f, 0.2f, 0.2f, 1f), 10, x, y);
+		lightCompo.light = new PointLight(LightSystem.rayHandler, 120,
+				new Color(0.3f, 0.3f, 0.3f, 1f), 5, x, y);
 		lightCompo.light.setContactFilter(LIGHT, (short) 0, WORLDOBJECT);
 		lightCompo.light.attachToBody(physicsBody.getBody());
 
@@ -249,10 +250,9 @@ public class EntityCreator {
 		// LightComponent
 		LightComponent lightCompo = engine
 				.createComponent(LightComponent.class);
-		lightCompo.light = new PointLight(LightSystem.rayHandler, 20,
+		lightCompo.light = new PointLight(LightSystem.rayHandler, 8,
 				new Color(1.0f, 0.0f, 0.0f, 0.7f), 1, x, y);
 		lightCompo.light.attachToBody(physicsBody.getBody());
-
 		entity.add(lightCompo);
 
 		engine.addEntity(entity);
@@ -311,8 +311,8 @@ public class EntityCreator {
 		// LightComponent
 		LightComponent lightCompo = engine
 				.createComponent(LightComponent.class);
-		lightCompo.light = new PointLight(LightSystem.rayHandler, 50,
-				new Color(0.1f, 0.1f, 0.1f, 1f), 5, x, y);
+		lightCompo.light = new PointLight(LightSystem.rayHandler, 8,
+				new Color(0.2f, 0.2f, 0.2f, 1f),3, x, y);
 		lightCompo.light.setContactFilter(LIGHT, (short) 0, WORLDOBJECT);
 
 		lightCompo.light.attachToBody(physicsBody.getBody());

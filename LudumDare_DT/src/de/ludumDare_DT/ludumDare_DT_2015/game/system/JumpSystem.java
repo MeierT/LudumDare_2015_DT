@@ -8,11 +8,13 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.components.InputComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.JumpComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsBodyComponent;
 
-public class JumpSystem extends IteratingSystem {
+public class JumpSystem extends IteratingProfilingSystem {
 
 	public JumpSystem(int priority) {
 		super(Family.all(InputComponent.class, PhysicsBodyComponent.class,
 				JumpComponent.class).get(), priority);
+		profiler.setMessage("jump-");
+		//setProfiling(true);
 	}
 
 	@Override

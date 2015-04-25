@@ -165,8 +165,8 @@ public class EntityCreator {
 		// LightComponent
 		LightComponent lightCompo = engine
 				.createComponent(LightComponent.class);
-		lightCompo.light = new PointLight(LightSystem.rayHandler, 120,
-				new Color(0.3f, 0.3f, 0.3f, 1f), 5, x, y);
+		lightCompo.light = new PointLight(LightSystem.rayHandler, 300,
+				new Color(0.3f, 0.3f, 0.3f, 1f), 9, x, y);
 		lightCompo.light.setContactFilter(LIGHT, (short) 0, WORLDOBJECT);
 		lightCompo.light.attachToBody(physicsBody.getBody());
 

@@ -56,8 +56,10 @@ public class PhysicsSystem extends IteratingSystem {
 
     @Override
     public void update(float deltaTime) {
+//    	ProfilerGlobal.startTime();
         world.step(deltaTime, velocityIterations, positionIterations);
-
+//        ProfilerGlobal.endTime();
+//        ProfilerGlobal.outMax("physics-");
         super.update(deltaTime);
     }
 

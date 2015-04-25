@@ -93,7 +93,7 @@ public class Game implements ApplicationListener {
 
 		/* Load TiledMap */
 		TiledMap map = new TmxMapLoader()
-				.load("src/main/resources/tilesets/example.tmx");
+				.load("/tilesets/example.tmx");
 
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(map,
 				1.0f / GameConstants.BOX2D_SCALE);
@@ -116,7 +116,7 @@ public class Game implements ApplicationListener {
 	}
 
 	public void addSystems() {
-		engine.addSystem(inputSystem);
+		//engine.addSystem(inputSystem);
 
 		EntityCreator.physicsSystem = physicsSystem;
 		engine.addSystem(physicsSystem);
@@ -148,7 +148,7 @@ public class Game implements ApplicationListener {
 		LightSystem.rayHandler.setShadows(true);
 		LightSystem.rayHandler.setAmbientLight(0.0f);
 
-		engine.addSystem(new LightSystem(GameConstants.PHYSICS_PRIORITY -11));
+		engine.addSystem(new LightSystem(GameConstants.PHYSICS_PRIORITY +1));
 
 		engine.addSystem(new DeathSystem(GameConstants.PHYSICS_PRIORITY + 4));
 	}
@@ -175,10 +175,6 @@ public class Game implements ApplicationListener {
 					EntityCreator.camSystem.getCamera().combined);
 		}
 		
-
-		LightSystem.rayHandler.setCombinedMatrix(EntityCreator.camSystem
-				.getCombinedMatrix());
-		LightSystem.rayHandler.updateAndRender();
 
 		// THIS DOES NOT BELONG HERE. PANIC!!!!! (#notimeleft)
 		DrawUtil.batch.begin();

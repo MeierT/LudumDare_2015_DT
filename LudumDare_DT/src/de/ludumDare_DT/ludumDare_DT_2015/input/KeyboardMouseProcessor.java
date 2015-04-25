@@ -8,6 +8,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector3;
 
 import de.ludumDare_DT.ludumDare_DT_2015.game.EntityCreator;
+import de.ludumDare_DT.ludumDare_DT_2015.game.Game;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.InputComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PlayerComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.CompMappers;
@@ -61,6 +62,7 @@ public class KeyboardMouseProcessor implements InputProcessor {
 			case Input.Keys.A: plane -= 1.0f; break;
 			case Input.Keys.D: plane += 1.0f; break;
 			case Input.Keys.W: this.jump(true); break;
+			case Input.Keys.F5: Game.setDoDebugRendering(!Game.isDoDebugRendering());
 		}
 		this.move(plane, 0.0f, 0.0f);
 		return true;

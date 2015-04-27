@@ -7,10 +7,10 @@ import com.badlogic.gdx.math.Vector2;
 
 import de.ludumDare_DT.ludumDare_DT_2015.game.EntityCreator;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.InputComponent;
-import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsBodyComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PositionComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.ShootingComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.CompMappers;
+import de.ludumDare_DT.ludumDare_DT_2015.physics.PhysicsBodyComponent;
 
 public class ShootingSystem extends IteratingProfilingSystem {
 
@@ -19,7 +19,7 @@ public class ShootingSystem extends IteratingProfilingSystem {
 				.one(InputComponent.class, ShootingComponent.class).get(),
 				priority);
 		profiler.setMessage("shooting-");
-		//setProfiling(true);
+		setProfiling(true);
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class ShootingSystem extends IteratingProfilingSystem {
 		if (input != null) {
 			if (input.shoot && input.shootTimer <= 0) {
 				// TODO make this not hardcoded
-				input.shootTimer = 0.3f;
+				input.shootTimer = input.shootTimerMax;
 				EntityCreator.createHeart(physicsBody.getPosition().x,
 						physicsBody.getPosition().y, input.shotDirection.x,
 						input.shotDirection.y);
@@ -48,10 +48,10 @@ public class ShootingSystem extends IteratingProfilingSystem {
 			Vector2 direction = shooting.shotDirection.cpy();
 			direction.sub(shooting.origin).nor();
 
-			physicsBody.getBody().applyLinearImpulse(
-					direction.scl(shooting.shotSpeed),
-					physicsBody.getBody().getWorldCenter(), true);
-			// physicsBody.getBody().setLinearVelocity(direction.scl(shooting.shotSpeed));
+//			physicsBody.getBody().applyLinearImpulse(
+//					direction.scl(shooting.shotSpeed),
+//					physicsBody.getBody().getWorldCenter(), true);
+			 physicsBody.getBody().setLinearVelocity(direction.scl(shooting.shotSpeed));
 			shooting.receivedImpulse = true;
 		} else if (shooting != null) {
 			if (shooting.timer > 0) {

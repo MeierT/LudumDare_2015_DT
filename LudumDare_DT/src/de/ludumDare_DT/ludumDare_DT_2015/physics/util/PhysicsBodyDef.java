@@ -1,10 +1,10 @@
-package de.ludumDare_DT.ludumDare_DT_2015.game.util;
+package de.ludumDare_DT.ludumDare_DT_2015.physics.util;
 
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
-import de.ludumDare_DT.ludumDare_DT_2015.game.system.PhysicsSystem;
+import de.ludumDare_DT.ludumDare_DT_2015.physics.PhysicsSystem;
 
 /**
  * Easier to use BodyDef of a Box2D Body

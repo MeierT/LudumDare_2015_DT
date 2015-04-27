@@ -8,13 +8,13 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import de.ludumDare_DT.ludumDare_DT_2015.game.EntityCreator;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.DeathComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.InputComponent;
-import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsBodyComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PositionComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.StartPointComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.TextureComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.CompMappers;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.GameConstants;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.MapLoader;
+import de.ludumDare_DT.ludumDare_DT_2015.physics.PhysicsBodyComponent;
 
 public class DeathSystem extends IteratingSystem {
 

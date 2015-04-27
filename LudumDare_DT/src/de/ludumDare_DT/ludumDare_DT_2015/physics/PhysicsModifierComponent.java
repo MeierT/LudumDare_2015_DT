@@ -1,4 +1,4 @@
-package de.ludumDare_DT.ludumDare_DT_2015.game.components;
+package de.ludumDare_DT.ludumDare_DT_2015.physics;
 
 import java.util.ArrayList;
 

@@ -13,10 +13,10 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.EntityCreator;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.DeathComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.EnemyComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.JumpComponent;
-import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsBodyComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PlayerComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.ShootingComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.CompMappers;
+import de.ludumDare_DT.ludumDare_DT_2015.physics.PhysicsBodyComponent;
 
 public class MyContactListener implements ContactListener {
 

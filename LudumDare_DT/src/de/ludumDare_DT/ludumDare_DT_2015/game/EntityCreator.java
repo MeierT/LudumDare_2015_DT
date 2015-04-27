@@ -13,12 +13,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Fixture;
 
+import de.ludumDare_DT.ludumDare_DT_2015.game.components.BulletLightComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.EnemyComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.InputComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.JumpComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.LightComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.MovementComponent;
-import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsBodyComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PlayerComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PositionComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.ShootingComponent;
@@ -26,10 +26,11 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.components.StartPointComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.TextureComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.CameraSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.LightSystem;
-import de.ludumDare_DT.ludumDare_DT_2015.game.system.PhysicsSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.GameConstants;
-import de.ludumDare_DT.ludumDare_DT_2015.game.util.PhysicsBodyDef;
-import de.ludumDare_DT.ludumDare_DT_2015.game.util.PhysicsFixtureDef;
+import de.ludumDare_DT.ludumDare_DT_2015.physics.PhysicsBodyComponent;
+import de.ludumDare_DT.ludumDare_DT_2015.physics.PhysicsSystem;
+import de.ludumDare_DT.ludumDare_DT_2015.physics.util.PhysicsBodyDef;
+import de.ludumDare_DT.ludumDare_DT_2015.physics.util.PhysicsFixtureDef;
 
 /**
  * 
@@ -141,7 +142,9 @@ public class EntityCreator {
 		entity.add(physicsBody);
 
 		// InputComponent
-		entity.add(engine.createComponent(InputComponent.class));
+		InputComponent inputC = engine.createComponent(InputComponent.class);
+		inputC.shootTimerMax = 0.1f;
+		entity.add(inputC);
 
 		// PositionComponent
 		PositionComponent positionComponet = engine
@@ -167,7 +170,7 @@ public class EntityCreator {
 				.createComponent(LightComponent.class);
 		lightCompo.light = new PointLight(LightSystem.rayHandler, 300,
 				new Color(0.3f, 0.3f, 0.3f, 1f), 9, x, y);
-		lightCompo.light.setContactFilter(LIGHT, (short) 0, WORLDOBJECT);
+		
 		lightCompo.light.attachToBody(physicsBody.getBody());
 
 		entity.add(lightCompo);
@@ -248,11 +251,13 @@ public class EntityCreator {
 		entity.add(shootingComponent);
 
 		// LightComponent
-		LightComponent lightCompo = engine
-				.createComponent(LightComponent.class);
-		lightCompo.light = new PointLight(LightSystem.rayHandler, 8,
-				new Color(1.0f, 0.0f, 0.0f, 0.7f), 1, x, y);
-		lightCompo.light.attachToBody(physicsBody.getBody());
+		BulletLightComponent lightCompo = engine
+				.createComponent(BulletLightComponent.class);
+		lightCompo.setLight(LightSystem.rayHandler, 8,
+				new Color(0.7f, 0.0f, 0.0f, 1.0f), 1, x, y, physicsBody.getBody());
+//		lightCompo.light = new PointLight(LightSystem.rayHandler, 8,
+//				new Color(1.0f, 0.0f, 0.0f, 0.7f), 1, x, y);
+//		lightCompo.light.attachToBody(physicsBody.getBody());
 		entity.add(lightCompo);
 
 		engine.addEntity(entity);
@@ -313,7 +318,7 @@ public class EntityCreator {
 				.createComponent(LightComponent.class);
 		lightCompo.light = new PointLight(LightSystem.rayHandler, 8,
 				new Color(0.2f, 0.2f, 0.2f, 1f),3, x, y);
-		lightCompo.light.setContactFilter(LIGHT, (short) 0, WORLDOBJECT);
+		//lightCompo.light.setContactFilter(LIGHT, (short) 0, WORLDOBJECT);
 
 		lightCompo.light.attachToBody(physicsBody.getBody());
 

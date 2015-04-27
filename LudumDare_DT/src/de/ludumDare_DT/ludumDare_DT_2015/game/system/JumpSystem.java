@@ -6,7 +6,7 @@ import com.badlogic.ashley.systems.IteratingSystem;
 
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.InputComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.JumpComponent;
-import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsBodyComponent;
+import de.ludumDare_DT.ludumDare_DT_2015.physics.PhysicsBodyComponent;
 
 public class JumpSystem extends IteratingProfilingSystem {
 

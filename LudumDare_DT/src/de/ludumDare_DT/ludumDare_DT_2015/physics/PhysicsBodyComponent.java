@@ -1,4 +1,4 @@
-package de.ludumDare_DT.ludumDare_DT_2015.game.components;
+package de.ludumDare_DT.ludumDare_DT_2015.physics;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
@@ -8,8 +8,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
-import de.ludumDare_DT.ludumDare_DT_2015.game.system.PhysicsSystem;
-import de.ludumDare_DT.ludumDare_DT_2015.game.util.PhysicsFixtureDef;
+import de.ludumDare_DT.ludumDare_DT_2015.physics.util.PhysicsFixtureDef;
 
 /**
  * Add this Component to every entity with any kind of physics logic

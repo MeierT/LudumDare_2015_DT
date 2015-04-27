@@ -2,18 +2,19 @@ package de.ludumDare_DT.ludumDare_DT_2015.game.util;
 
 import com.badlogic.ashley.core.ComponentMapper;
 
+import de.ludumDare_DT.ludumDare_DT_2015.game.components.BulletLightComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.DeathComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.EnemyComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.InputComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.JumpComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.LightComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.MovementComponent;
-import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsBodyComponent;
-import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsModifierComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PlayerComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PositionComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.ShootingComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.TextureComponent;
+import de.ludumDare_DT.ludumDare_DT_2015.physics.PhysicsBodyComponent;
+import de.ludumDare_DT.ludumDare_DT_2015.physics.PhysicsModifierComponent;
 
 /**
  * Used to map components to their entities. Always use this to retrieve a
@@ -48,5 +49,7 @@ public class CompMappers {
 			.getFor(DeathComponent.class);
 	public static final ComponentMapper<EnemyComponent> enemy = ComponentMapper
 			.getFor(EnemyComponent.class);
+	public static final ComponentMapper<BulletLightComponent> bulletLight = ComponentMapper
+			.getFor(BulletLightComponent.class);
 
 }

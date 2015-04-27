@@ -1,4 +1,4 @@
-package de.ludumDare_DT.ludumDare_DT_2015.game.util;
+package de.ludumDare_DT.ludumDare_DT_2015.physics.util;
 
 import java.util.List;
 
@@ -8,7 +8,8 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
-import de.ludumDare_DT.ludumDare_DT_2015.game.system.PhysicsSystem;
+import de.ludumDare_DT.ludumDare_DT_2015.game.util.Point;
+import de.ludumDare_DT.ludumDare_DT_2015.physics.PhysicsSystem;
 
 
 /**

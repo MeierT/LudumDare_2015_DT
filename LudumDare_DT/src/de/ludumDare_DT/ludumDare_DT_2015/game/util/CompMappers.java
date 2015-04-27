@@ -8,12 +8,12 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.components.InputComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.JumpComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.LightComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.MovementComponent;
-import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsBodyComponent;
-import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsModifierComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PlayerComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PositionComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.ShootingComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.TextureComponent;
+import de.ludumDare_DT.ludumDare_DT_2015.physics.PhysicsBodyComponent;
+import de.ludumDare_DT.ludumDare_DT_2015.physics.PhysicsModifierComponent;
 
 /**
  * Used to map components to their entities. Always use this to retrieve a

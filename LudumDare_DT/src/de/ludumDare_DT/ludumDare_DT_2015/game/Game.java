@@ -26,7 +26,6 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.system.InputSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.JumpSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.LightSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.MovementSystem;
-import de.ludumDare_DT.ludumDare_DT_2015.game.system.PhysicsSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.ShootingSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.TextureRenderer;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.UpdatePositionSystem;
@@ -34,6 +33,9 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.util.DrawUtil;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.GameConstants;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.MapLoader;
 import de.ludumDare_DT.ludumDare_DT_2015.input.InputManager;
+import de.ludumDare_DT.ludumDare_DT_2015.physics.PhysicsSystem;
+import de.ludumDare_DT.ludumDare_DT_2015.profiling.ProfilerGlobal;
+import de.ludumDare_DT.ludumDare_DT_2015.profiling.Profiling;
 
 public class Game implements ApplicationListener {
 
@@ -102,13 +104,6 @@ public class Game implements ApplicationListener {
 		MapLoader.generateWorldFromTiledMap(engine, map, physicsSystem,
 				EntityCreator.camSystem);
 
-		// DrawUtil.batch.setTransformMatrix(engine.getSystem(CameraSystem.class).getCombinedMatrix());
-		// setProjectionMatrix(engine.getSystem(CameraSystem.class).getCombinedMatrix());
-
-		/*
-		 * Test n stuff
-		 */
-
 		box2DDebugRenderer = new Box2DDebugRenderer();
 
 		font = new BitmapFont();
@@ -120,7 +115,7 @@ public class Game implements ApplicationListener {
 
 		EntityCreator.physicsSystem = physicsSystem;
 		engine.addSystem(physicsSystem);
-		physicsSystem.setGravity(new Vector2(0, -30)); // erstmal keine gravity,
+		physicsSystem.setGravity(new Vector2(0, -30)); 
 
 		// add MovementSystem
 		engine.addSystem(new MovementSystem(GameConstants.PHYSICS_PRIORITY + 1));
@@ -162,17 +157,24 @@ public class Game implements ApplicationListener {
 	public void render() {
 
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-
+//		ProfilerGlobal.startTime();
 		tiledMapRenderer.setView(EntityCreator.camSystem.getCamera());
 		tiledMapRenderer.render();
-
+//		ProfilerGlobal.endTime();
+//		ProfilerGlobal.outMax("tiled-");
+		
+		ProfilerGlobal.startTime();
 		engine.update(Gdx.graphics.getDeltaTime());
-
-		EntityCreator.camSystem.getCamera().update();
+		ProfilerGlobal.endTime();
+		ProfilerGlobal.outMax("engine-");
+		
 		
 		if(doDebugRendering){
+//			ProfilerGlobal.startTime();
 			box2DDebugRenderer.render(EntityCreator.physicsSystem.getWorld(),
 					EntityCreator.camSystem.getCamera().combined);
+//			ProfilerGlobal.endTime();
+//			ProfilerGlobal.outMax("box2dDebug-");
 		}
 		
 

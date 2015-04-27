@@ -1,4 +1,4 @@
-package de.ludumDare_DT.ludumDare_DT_2015.game.system;
+package de.ludumDare_DT.ludumDare_DT_2015.physics;
 
 import java.util.List;
 
@@ -12,8 +12,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
-import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsBodyComponent;
-import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsModifierComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.CompMappers;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.Point;
 

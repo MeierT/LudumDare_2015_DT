@@ -18,7 +18,6 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.components.InputComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.JumpComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.LightComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.MovementComponent;
-import de.ludumDare_DT.ludumDare_DT_2015.game.components.PhysicsBodyComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PlayerComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PositionComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.ShootingComponent;
@@ -26,10 +25,11 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.components.StartPointComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.TextureComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.CameraSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.LightSystem;
-import de.ludumDare_DT.ludumDare_DT_2015.game.system.PhysicsSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.GameConstants;
-import de.ludumDare_DT.ludumDare_DT_2015.game.util.PhysicsBodyDef;
-import de.ludumDare_DT.ludumDare_DT_2015.game.util.PhysicsFixtureDef;
+import de.ludumDare_DT.ludumDare_DT_2015.physics.PhysicsBodyComponent;
+import de.ludumDare_DT.ludumDare_DT_2015.physics.PhysicsSystem;
+import de.ludumDare_DT.ludumDare_DT_2015.physics.util.PhysicsBodyDef;
+import de.ludumDare_DT.ludumDare_DT_2015.physics.util.PhysicsFixtureDef;
 
 /**
  * 

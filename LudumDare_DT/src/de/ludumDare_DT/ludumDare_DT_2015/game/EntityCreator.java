@@ -88,7 +88,7 @@ public class EntityCreator {
 				.createComponent(TextureComponent.class);
 
 		textureComponent.texture = new TextureRegion(new Texture(
-				"/images/Amor2.png"));
+				"images/Amor2.png"));
 		textureComponent.width = textureComponent.texture.getRegionWidth();
 		textureComponent.height = textureComponent.texture.getRegionHeight();
 		entity.add(textureComponent);
@@ -165,8 +165,8 @@ public class EntityCreator {
 		// LightComponent
 		LightComponent lightCompo = engine
 				.createComponent(LightComponent.class);
-		lightCompo.light = new PointLight(LightSystem.rayHandler, 120,
-				new Color(0.3f, 0.3f, 0.3f, 1f), 5, x, y);
+		lightCompo.light = new PointLight(LightSystem.rayHandler, 300,
+				new Color(0.3f, 0.3f, 0.3f, 1f), 9, x, y);
 		lightCompo.light.setContactFilter(LIGHT, (short) 0, WORLDOBJECT);
 		lightCompo.light.attachToBody(physicsBody.getBody());
 
@@ -206,7 +206,7 @@ public class EntityCreator {
 				.createComponent(TextureComponent.class);
 
 		textureComponent.texture = new TextureRegion(new Texture(
-				"/images/herz.png"));
+				"images/herz.png"));
 		textureComponent.width = 32;
 		textureComponent.height = 32;
 
@@ -272,7 +272,7 @@ public class EntityCreator {
 				.createComponent(TextureComponent.class);
 
 		textureComponent.texture = new TextureRegion(new Texture(
-				"/images/Enemy1_64pix.png"));
+				"images/Enemy1_64pix.png"));
 		textureComponent.width = textureComponent.texture.getRegionWidth();
 		textureComponent.height = textureComponent.texture.getRegionHeight();
 

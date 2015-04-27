@@ -11,7 +11,7 @@ public class TextureComponent extends Component implements Poolable {
 	
 	@Override
 	public void reset() {
-		texture = null;	
+		texture.getTexture().dispose();	
 		width = height = 0;
 	}
 

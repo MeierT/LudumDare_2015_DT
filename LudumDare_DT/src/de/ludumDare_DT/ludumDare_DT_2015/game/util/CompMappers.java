@@ -2,6 +2,7 @@ package de.ludumDare_DT.ludumDare_DT_2015.game.util;
 
 import com.badlogic.ashley.core.ComponentMapper;
 
+import de.ludumDare_DT.ludumDare_DT_2015.game.components.BulletLightComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.DeathComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.EnemyComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.InputComponent;
@@ -48,5 +49,7 @@ public class CompMappers {
 			.getFor(DeathComponent.class);
 	public static final ComponentMapper<EnemyComponent> enemy = ComponentMapper
 			.getFor(EnemyComponent.class);
+	public static final ComponentMapper<BulletLightComponent> bulletLight = ComponentMapper
+			.getFor(BulletLightComponent.class);
 
 }

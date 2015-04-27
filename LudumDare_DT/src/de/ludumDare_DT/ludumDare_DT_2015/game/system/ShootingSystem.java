@@ -19,7 +19,7 @@ public class ShootingSystem extends IteratingProfilingSystem {
 				.one(InputComponent.class, ShootingComponent.class).get(),
 				priority);
 		profiler.setMessage("shooting-");
-		//setProfiling(true);
+		setProfiling(true);
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class ShootingSystem extends IteratingProfilingSystem {
 		if (input != null) {
 			if (input.shoot && input.shootTimer <= 0) {
 				// TODO make this not hardcoded
-				input.shootTimer = 0.3f;
+				input.shootTimer = input.shootTimerMax;
 				EntityCreator.createHeart(physicsBody.getPosition().x,
 						physicsBody.getPosition().y, input.shotDirection.x,
 						input.shotDirection.y);

@@ -1,5 +1,6 @@
 package de.ludumDare_DT.ludumDare_DT_2015.game.system;
 
+import box2dLight.Light;
 import box2dLight.RayHandler;
 
 import com.badlogic.ashley.core.EntitySystem;
@@ -15,6 +16,7 @@ public class LightSystem extends EntitySystem {
 
 	public LightSystem(int priority) {
 		super(priority);
+		Light.setContactFilter(EntityCreator.LIGHT, (short) 0, EntityCreator.WORLDOBJECT);
 	}
 
 	@Override

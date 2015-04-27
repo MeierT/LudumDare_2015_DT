@@ -13,13 +13,14 @@ public class InputComponent extends Component implements Pool.Poolable {
 	public boolean shoot = false;
 	
 	public float shootTimer = 0f;
+	public float shootTimerMax = 0f;
 	public Vector2 shotDirection = new Vector2();
 	
 	@Override
 	public void reset() {
 		this.x = 0.0f;
 		this.y = 0.0f;
-		this.shootTimer = 0f;
+		this.shootTimer = shootTimerMax = 0f;
 		
 		this.jump = shoot = false;
 		this.shotDirection.setZero();

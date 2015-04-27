@@ -163,10 +163,10 @@ public class Game implements ApplicationListener {
 //		ProfilerGlobal.endTime();
 //		ProfilerGlobal.outMax("tiled-");
 		
-		ProfilerGlobal.startTime();
+//		ProfilerGlobal.startTime();
 		engine.update(Gdx.graphics.getDeltaTime());
-		ProfilerGlobal.endTime();
-		ProfilerGlobal.outMax("engine-");
+//		ProfilerGlobal.endTime();
+//		ProfilerGlobal.outMax("engine-");
 		
 		
 		if(doDebugRendering){

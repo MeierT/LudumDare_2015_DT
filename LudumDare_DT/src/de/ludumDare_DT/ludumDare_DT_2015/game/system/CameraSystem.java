@@ -10,12 +10,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 
-import de.ludumDare_DT.ludumDare_DT_2015.game.EntityCreator;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PlayerComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.PositionComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.CompMappers;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.GameConstants;
-import de.ludumDare_DT.ludumDare_DT_2015.game.util.MapLoader;
 
 /**
  * CameraSystem. Follows the entity with the most recently added PlayerComponent

@@ -23,7 +23,6 @@ import de.ludumDare_DT.ludumDare_DT_2015.audio.SoundManager;
 import de.ludumDare_DT.ludumDare_DT_2015.game.contactlistener.MyContactListener;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.CameraSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.DeathSystem;
-import de.ludumDare_DT.ludumDare_DT_2015.game.system.InputSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.JumpSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.LightSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.MovementSystem;
@@ -35,6 +34,7 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.util.GameConstants;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.MapLoader;
 import de.ludumDare_DT.ludumDare_DT_2015.input.InputManager;
 import de.ludumDare_DT.ludumDare_DT_2015.physics.PhysicsSystem;
+import de.ludumDare_DT.ludumDare_DT_2015.profiling.ProfilerGlobal;
 
 public class Game implements ApplicationListener {
 
@@ -52,7 +52,6 @@ public class Game implements ApplicationListener {
 
 	private OrthogonalTiledMapRenderer tiledMapRenderer;
 
-	private final InputSystem inputSystem = new InputSystem(10);
 	// add PhysicSystem
 	private final PhysicsSystem physicsSystem = new PhysicsSystem(
 			GameConstants.BOX2D_VELOCITY_ITERATIONS,
@@ -175,10 +174,10 @@ public class Game implements ApplicationListener {
 //		ProfilerGlobal.endTime();
 //		ProfilerGlobal.outMax("tiled-");
 		
-//		ProfilerGlobal.startTime();
+		ProfilerGlobal.startTime();
 		engine.update(Gdx.graphics.getDeltaTime());
-//		ProfilerGlobal.endTime();
-//		ProfilerGlobal.outMax("engine-");
+		ProfilerGlobal.endTime();
+		ProfilerGlobal.outMax("engine-");
 		
 		
 		if(doDebugRendering){

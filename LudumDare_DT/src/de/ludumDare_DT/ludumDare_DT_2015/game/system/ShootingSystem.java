@@ -2,7 +2,6 @@ package de.ludumDare_DT.ludumDare_DT_2015.game.system;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.Vector2;
 
 import de.ludumDare_DT.ludumDare_DT_2015.game.EntityCreator;
@@ -19,7 +18,7 @@ public class ShootingSystem extends IteratingProfilingSystem {
 				.one(InputComponent.class, ShootingComponent.class).get(),
 				priority);
 		profiler.setMessage("shooting-");
-		setProfiling(true);
+		//setProfiling(true);
 	}
 
 	@Override

@@ -3,7 +3,6 @@ package de.ludumDare_DT.ludumDare_DT_2015.game.util;
 import java.nio.file.AccessDeniedException;
 
 import com.badlogic.ashley.core.PooledEngine;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapObject;

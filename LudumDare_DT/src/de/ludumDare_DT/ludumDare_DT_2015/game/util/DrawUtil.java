@@ -7,4 +7,8 @@ public class DrawUtil {
 	
 //	setProjectionMatrix(engine.getSystem(CameraSystem.class)
 //			.getCombinedMatrix());
+	public static void dispose(){
+		batch.dispose();
+	}
+	
 }

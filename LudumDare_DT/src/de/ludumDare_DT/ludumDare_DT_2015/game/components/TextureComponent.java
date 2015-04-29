@@ -11,6 +11,7 @@ public class TextureComponent extends Component implements Poolable {
 	
 	@Override
 	public void reset() {
+		// don't dispose! texture is handled by the Assetmanager!
 		texture = null;
 		width = height = 0;
 	}

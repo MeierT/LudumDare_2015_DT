@@ -88,8 +88,7 @@ public class EntityCreator {
 		TextureComponent textureComponent = engine
 				.createComponent(TextureComponent.class);
 
-		textureComponent.texture = new TextureRegion(new Texture(
-				"images/Amor2.png"));
+		textureComponent.texture = new TextureRegion(Game.assetManager.get("/images/Amor2.png", Texture.class));
 		textureComponent.width = textureComponent.texture.getRegionWidth();
 		textureComponent.height = textureComponent.texture.getRegionHeight();
 		entity.add(textureComponent);
@@ -208,8 +207,7 @@ public class EntityCreator {
 		TextureComponent textureComponent = engine
 				.createComponent(TextureComponent.class);
 
-		textureComponent.texture = new TextureRegion(new Texture(
-				"images/herz.png"));
+		textureComponent.texture = new TextureRegion(Game.assetManager.get("/images/herz.png", Texture.class));
 		textureComponent.width = 32;
 		textureComponent.height = 32;
 
@@ -276,8 +274,7 @@ public class EntityCreator {
 		TextureComponent textureComponent = engine
 				.createComponent(TextureComponent.class);
 
-		textureComponent.texture = new TextureRegion(new Texture(
-				"images/Enemy1_64pix.png"));
+		textureComponent.texture = new TextureRegion(Game.assetManager.get("/images/Enemy1_64pix.png", Texture.class));
 		textureComponent.width = textureComponent.texture.getRegionWidth();
 		textureComponent.height = textureComponent.texture.getRegionHeight();
 

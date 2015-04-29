@@ -9,6 +9,7 @@ import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -34,8 +35,6 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.util.GameConstants;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.MapLoader;
 import de.ludumDare_DT.ludumDare_DT_2015.input.InputManager;
 import de.ludumDare_DT.ludumDare_DT_2015.physics.PhysicsSystem;
-import de.ludumDare_DT.ludumDare_DT_2015.profiling.ProfilerGlobal;
-import de.ludumDare_DT.ludumDare_DT_2015.profiling.Profiling;
 
 public class Game implements ApplicationListener {
 
@@ -93,6 +92,7 @@ public class Game implements ApplicationListener {
 		EntityCreator.physicsSystem.getWorld().setContactListener(
 				new MyContactListener());
 
+		
 		/* Load TiledMap */
 		TiledMap map = new TmxMapLoader()
 				.load("tilesets/example2.tmx");
@@ -100,9 +100,17 @@ public class Game implements ApplicationListener {
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(map,
 				1.0f / GameConstants.BOX2D_SCALE);
 
+		/* Load our Textures!*/
+		assetManager.load("/images/Amor2.png", Texture.class);
+		assetManager.load("/images/Enemy1_64pix.png", Texture.class);
+		assetManager.load("/images/herz.png", Texture.class);
+		// lets the assetManager finish loading everything
+		assetManager.finishLoading();
+		
 		/* MapLoader */
 		MapLoader.generateWorldFromTiledMap(engine, map, physicsSystem,
 				EntityCreator.camSystem);
+		
 
 		box2DDebugRenderer = new Box2DDebugRenderer();
 
@@ -155,6 +163,10 @@ public class Game implements ApplicationListener {
 
 	@Override
 	public void render() {
+		
+		if(!assetManager.update()){
+			System.out.println("Noch nicht alles geladen!");
+		}
 
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 //		ProfilerGlobal.startTime();

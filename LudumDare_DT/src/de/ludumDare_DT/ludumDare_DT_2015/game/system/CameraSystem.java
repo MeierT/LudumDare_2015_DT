@@ -75,6 +75,7 @@ public class CameraSystem extends EntitySystem implements EntityListener {
 //				this.viewpoint.x = x;
 //				this.viewpoint.y = y;
 //				
+				
 				setCameraPosition(posComp.x, posComp.y);
 				
 			}

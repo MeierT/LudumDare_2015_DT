@@ -17,14 +17,13 @@ import de.ludumDare_DT.ludumDare_DT_2015.physics.PhysicsBodyComponent;
 public class DeathSystem extends IteratingSystem {
 
 	public DeathSystem(int priority) {
-		super(Family.all(DeathComponent.class, PositionComponent.class,
+		super(Family.all(DeathComponent.class,
 				TextureComponent.class).get(), priority);
 	}
 
 	@Override
 	protected void processEntity(Entity entity, float deltaTime) {
 		DeathComponent deathComp = CompMappers.death.get(entity);
-		PositionComponent positionComp = CompMappers.position.get(entity);
 		TextureComponent textureComp = CompMappers.texture.get(entity);
 
 		if (CompMappers.physicsBody.has(entity)) {
@@ -40,6 +39,8 @@ public class DeathSystem extends IteratingSystem {
 			textureComp.height *= 0.99f;
 		} else {
 			if (CompMappers.player.has(entity)) {
+				//if the player is dying - remove the death component and put him back to his position
+				
 				entity.remove(DeathComponent.class);
 				
 				Family family = Family.all(StartPointComponent.class,
@@ -47,21 +48,19 @@ public class DeathSystem extends IteratingSystem {
 				ImmutableArray<Entity> startpoints = EntityCreator.engine
 						.getEntitiesFor(family);
 
+				// get his startposition
 				PositionComponent startPosition = CompMappers.position
 						.get(startpoints.first());
-				
-				
-				
-				
+				// reset the player to the startposition
 				PhysicsBodyComponent physicsBody = CompMappers.physicsBody
 						.get(entity);
 				physicsBody.getBody().setTransform(startPosition.x / GameConstants.BOX2D_SCALE,
 						startPosition.y/ GameConstants.BOX2D_SCALE, 0);
-					
+				// restore the texture width and height that has been decreased by death
 				textureComp.width = textureComp.texture.getRegionWidth();
 				textureComp.height = textureComp.texture.getRegionHeight();
 
-			} else {
+			} else if(CompMappers.enemy.has(entity)){
 				EntityCreator.engine.removeEntity(entity);
 				EntityCreator.enemyCounter --;
 			}

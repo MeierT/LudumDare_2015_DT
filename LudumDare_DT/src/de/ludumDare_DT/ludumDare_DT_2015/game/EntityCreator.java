@@ -1,7 +1,6 @@
 package de.ludumDare_DT.ludumDare_DT_2015.game;
 
 import box2dLight.ConeLight;
-import box2dLight.Light;
 import box2dLight.PointLight;
 
 import com.badlogic.ashley.core.Entity;

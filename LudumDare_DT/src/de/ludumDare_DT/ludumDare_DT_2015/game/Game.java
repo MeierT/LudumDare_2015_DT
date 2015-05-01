@@ -99,6 +99,7 @@ public class Game implements ApplicationListener {
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(map,
 				1.0f / GameConstants.BOX2D_SCALE);
 
+		
 		/* Load our Textures!*/
 		assetManager.load("/images/Amor2.png", Texture.class);
 		assetManager.load("/images/Enemy1_64pix.png", Texture.class);

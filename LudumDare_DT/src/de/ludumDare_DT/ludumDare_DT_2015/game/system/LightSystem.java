@@ -15,6 +15,11 @@ public class LightSystem extends EntitySystem {
 	public LightSystem(int priority) {
 		super(priority);
 		Light.setContactFilter(EntityCreator.LIGHT, (short) 0, EntityCreator.WORLDOBJECT);
+		LightSystem.rayHandler = new RayHandler(EntityCreator.physicsSystem.getWorld());
+		LightSystem.rayHandler.setCombinedMatrix(EntityCreator.camSystem
+				.getCamera());
+		LightSystem.rayHandler.setShadows(true);
+		LightSystem.rayHandler.setAmbientLight(0.0f);
 	}
 
 	@Override

@@ -29,12 +29,14 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.system.MovementSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.ShootingSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.TextureRenderer;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.UpdatePositionSystem;
+import de.ludumDare_DT.ludumDare_DT_2015.game.util.AssetLoader;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.DrawUtil;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.GameConstants;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.MapLoader;
 import de.ludumDare_DT.ludumDare_DT_2015.input.InputManager;
 import de.ludumDare_DT.ludumDare_DT_2015.physics.PhysicsSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.profiling.ProfilerGlobal;
+import de.ludumDare_DT.ludumDare_DT_2015.tiled.TiledMapRenderingSystem;
 
 public class Game implements ApplicationListener {
 
@@ -50,7 +52,6 @@ public class Game implements ApplicationListener {
 
 	
 
-	private OrthogonalTiledMapRenderer tiledMapRenderer;
 
 	// add PhysicSystem
 	private final PhysicsSystem physicsSystem = new PhysicsSystem(
@@ -66,7 +67,6 @@ public class Game implements ApplicationListener {
 	public InputManager inputManager;
 	public static SoundManager soundManager;
 	public static MusicManager musicManager;
-	public static AssetManager assetManager;
 
 	ConeLight light2;
 
@@ -83,76 +83,58 @@ public class Game implements ApplicationListener {
 		inputManager = new InputManager();
 		soundManager = new SoundManager();
 		musicManager = new MusicManager();
-		assetManager = new AssetManager();
 
 		/* Systems */
 		this.addSystems();
 
+		/* ContactListener */
 		EntityCreator.physicsSystem.getWorld().setContactListener(
 				new MyContactListener());
 
 		
-		/* Load TiledMap */
-		TiledMap map = new TmxMapLoader()
-				.load("tilesets/example2.tmx");
+		/* load all Assets */
+		AssetLoader.loadAll();
 
-		tiledMapRenderer = new OrthogonalTiledMapRenderer(map,
-				1.0f / GameConstants.BOX2D_SCALE);
-
-		
-		/* Load our Textures!*/
-		assetManager.load("/images/Amor2.png", Texture.class);
-		assetManager.load("/images/Enemy1_64pix.png", Texture.class);
-		assetManager.load("/images/herz.png", Texture.class);
-		// lets the assetManager finish loading everything
-		assetManager.finishLoading();
-		
-		/* MapLoader */
-		MapLoader.generateWorldFromTiledMap(engine, map, physicsSystem,
-				EntityCreator.camSystem);
-		
-
+		/* Create debugRenderer and tiledMapRenderer*/
+		// TODO - move this to a class it belongs to. into the rendering!
 		box2DDebugRenderer = new Box2DDebugRenderer();
 
+		
+
+
+		
 		font = new BitmapFont();
 
 	}
 
 	public void addSystems() {
-		//engine.addSystem(inputSystem);
-
-		EntityCreator.physicsSystem = physicsSystem;
-		engine.addSystem(physicsSystem);
-		physicsSystem.setGravity(new Vector2(0, -30)); 
-
-		// add MovementSystem
-		engine.addSystem(new MovementSystem(GameConstants.PHYSICS_PRIORITY + 1));
-
-		// add UpdatePositionSystem
-		engine.addSystem(new UpdatePositionSystem(
-				GameConstants.PHYSICS_PRIORITY + 2));
-
+		/* Rendering related stuff */
 		// CameraSystem
 		CameraSystem camSystem = new CameraSystem(GameConstants.CAMERA_PRIORITY);
 		EntityCreator.camSystem = camSystem;
 		engine.addSystem(camSystem);
+		// texture rendering
+		engine.addSystem(textureRenderer);
+		// tiledmaprendering
+		engine.addSystem(new TiledMapRenderingSystem());
 
+		/* Physiks related stuff */
+		EntityCreator.physicsSystem = physicsSystem;
+		engine.addSystem(physicsSystem);
+		physicsSystem.setGravity(new Vector2(0, -30)); 
+		// add MovementSystem
+		engine.addSystem(new MovementSystem(GameConstants.PHYSICS_PRIORITY + 1));
+		// add UpdatePositionSystem
+		engine.addSystem(new UpdatePositionSystem(
+				GameConstants.PHYSICS_PRIORITY + 2));
 		// ShootingSystem
 		engine.addSystem(new ShootingSystem(GameConstants.CAMERA_PRIORITY + 1));
-
-		/* TextureRenderer */
-		engine.addSystem(textureRenderer);
-
 		engine.addSystem(jumpSystem);
-
-		LightSystem.rayHandler = new RayHandler(physicsSystem.getWorld());
-		LightSystem.rayHandler.setCombinedMatrix(EntityCreator.camSystem
-				.getCamera());
-		LightSystem.rayHandler.setShadows(true);
-		LightSystem.rayHandler.setAmbientLight(0.0f);
-
 		engine.addSystem(new LightSystem(GameConstants.PHYSICS_PRIORITY +1));
-
+		
+		
+		
+		/* GamePlay */
 		engine.addSystem(new DeathSystem(GameConstants.PHYSICS_PRIORITY + 4));
 	}
 
@@ -164,16 +146,12 @@ public class Game implements ApplicationListener {
 	@Override
 	public void render() {
 		
-		if(!assetManager.update()){
+		if(!AssetLoader.getAssetManager().update()){
 			System.out.println("Noch nicht alles geladen!");
 		}
 
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-//		ProfilerGlobal.startTime();
-		tiledMapRenderer.setView(EntityCreator.camSystem.getCamera());
-		tiledMapRenderer.render();
-//		ProfilerGlobal.endTime();
-//		ProfilerGlobal.outMax("tiled-");
+
 		
 		ProfilerGlobal.startTime();
 		engine.update(Gdx.graphics.getDeltaTime());

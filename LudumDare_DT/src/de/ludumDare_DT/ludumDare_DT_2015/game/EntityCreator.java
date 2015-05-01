@@ -25,6 +25,7 @@ import de.ludumDare_DT.ludumDare_DT_2015.game.components.StartPointComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.components.TextureComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.CameraSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.LightSystem;
+import de.ludumDare_DT.ludumDare_DT_2015.game.util.AssetLoader;
 import de.ludumDare_DT.ludumDare_DT_2015.game.util.GameConstants;
 import de.ludumDare_DT.ludumDare_DT_2015.physics.PhysicsBodyComponent;
 import de.ludumDare_DT.ludumDare_DT_2015.physics.PhysicsSystem;
@@ -87,7 +88,7 @@ public class EntityCreator {
 		TextureComponent textureComponent = engine
 				.createComponent(TextureComponent.class);
 
-		textureComponent.texture = new TextureRegion(Game.assetManager.get("/images/Amor2.png", Texture.class));
+		textureComponent.texture = new TextureRegion(AssetLoader.getAssetManager().get("/images/Amor2.png", Texture.class));
 		textureComponent.width = textureComponent.texture.getRegionWidth();
 		textureComponent.height = textureComponent.texture.getRegionHeight();
 		entity.add(textureComponent);
@@ -206,7 +207,7 @@ public class EntityCreator {
 		TextureComponent textureComponent = engine
 				.createComponent(TextureComponent.class);
 
-		textureComponent.texture = new TextureRegion(Game.assetManager.get("/images/herz.png", Texture.class));
+		textureComponent.texture = new TextureRegion(AssetLoader.getAssetManager().get("/images/herz.png", Texture.class));
 		textureComponent.width = 32;
 		textureComponent.height = 32;
 
@@ -273,7 +274,7 @@ public class EntityCreator {
 		TextureComponent textureComponent = engine
 				.createComponent(TextureComponent.class);
 
-		textureComponent.texture = new TextureRegion(Game.assetManager.get("/images/Enemy1_64pix.png", Texture.class));
+		textureComponent.texture = new TextureRegion(AssetLoader.getAssetManager().get("/images/Enemy1_64pix.png", Texture.class));
 		textureComponent.width = textureComponent.texture.getRegionWidth();
 		textureComponent.height = textureComponent.texture.getRegionHeight();
 

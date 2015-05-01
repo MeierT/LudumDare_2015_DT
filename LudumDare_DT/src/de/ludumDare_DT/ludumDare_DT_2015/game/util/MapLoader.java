@@ -14,6 +14,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import de.ludumDare_DT.ludumDare_DT_2015.game.EntityCreator;
 import de.ludumDare_DT.ludumDare_DT_2015.game.system.CameraSystem;
 import de.ludumDare_DT.ludumDare_DT_2015.physics.PhysicsSystem;
+import de.ludumDare_DT.ludumDare_DT_2015.tiled.TiledMapRenderingSystem;
 
 public class MapLoader {
 	private static boolean loaded = false;
@@ -26,11 +27,10 @@ public class MapLoader {
 	
 	
 	public static void generateWorldFromTiledMap(PooledEngine engine,
-			TiledMap map, PhysicsSystem physicsSystem, CameraSystem cameraSystem) {
-		
-		
-		
+		TiledMap map, PhysicsSystem physicsSystem, CameraSystem cameraSystem) {
 		currentMap = map;
+		TiledMapRenderingSystem.setMap(currentMap);
+		
 		EntityCreator.enemyCounter  = 0;
 		
 		MapLayers mapLayers = map.getLayers();

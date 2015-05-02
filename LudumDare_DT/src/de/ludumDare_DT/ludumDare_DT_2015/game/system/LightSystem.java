@@ -7,6 +7,7 @@ import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.gdx.physics.box2d.World;
 
 import de.ludumDare_DT.ludumDare_DT_2015.game.EntityCreator;
+import de.ludumDare_DT.ludumDare_DT_2015.profiling.ProfilerGlobal;
 
 public class LightSystem extends EntitySystem {
 
@@ -15,22 +16,23 @@ public class LightSystem extends EntitySystem {
 	public LightSystem(int priority) {
 		super(priority);
 		Light.setContactFilter(EntityCreator.LIGHT, (short) 0, EntityCreator.WORLDOBJECT);
-		LightSystem.rayHandler = new RayHandler(EntityCreator.physicsSystem.getWorld());
+		LightSystem.rayHandler = new RayHandler(EntityCreator.physicsSystem.getWorld(), 200, 120);
 		LightSystem.rayHandler.setCombinedMatrix(EntityCreator.camSystem
 				.getCamera());
 		LightSystem.rayHandler.setShadows(true);
 		LightSystem.rayHandler.setAmbientLight(0.0f);
+		LightSystem.rayHandler.setBlurNum(1);
 	}
 
 	@Override
 	public void update(float deltaTime) {
-		//ProfilerGlobal.startTime();
+		ProfilerGlobal.startTime();
 		rayHandler.setCombinedMatrix(EntityCreator.camSystem
 				.getCamera().combined);
 		rayHandler.updateAndRender();
 		super.update(deltaTime);
-		//ProfilerGlobal.endTime();
-		//ProfilerGlobal.outMax("light-");
+		ProfilerGlobal.endTime();
+		ProfilerGlobal.outMax("light-");
 	}
 
 	public static void setRayHandler(World world) {

@@ -18,7 +18,7 @@ public class ShootingSystem extends IteratingProfilingSystem {
 				.one(InputComponent.class, ShootingComponent.class).get(),
 				priority);
 		profiler.setMessage("shooting-");
-		//setProfiling(true);
+//		setProfiling(true);
 	}
 
 	@Override

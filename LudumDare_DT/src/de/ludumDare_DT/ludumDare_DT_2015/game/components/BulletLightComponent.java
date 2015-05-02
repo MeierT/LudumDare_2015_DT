@@ -20,15 +20,17 @@ public class BulletLightComponent extends LightComponent{
 			light.setActive(true);
 			light.setColor(color);
 			light.setDistance(distance);
+			
 		}else{
 			light = new PointLight(LightSystem.rayHandler, 8,
 					new Color(0.7f, 0.0f, 0.0f, 1.0f), 1, x, y);
 		}
+		light.setXray(true);
 		light.attachToBody(body);
 	}
 	
 	@Override
 	public void reset() {
-		light.setActive(false);
+		light.setActive(false);;
 	}
 }

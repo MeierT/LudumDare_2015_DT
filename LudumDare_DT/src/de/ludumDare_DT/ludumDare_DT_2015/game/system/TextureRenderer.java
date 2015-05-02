@@ -19,7 +19,7 @@ public class TextureRenderer extends IteratingProfilingSystem {
 				Family.all(TextureComponent.class, PositionComponent.class)
 						.get(), priority);
 		profiler.setMessage("texture-");
-		//setProfiling(true);
+//		setProfiling(true);
 	}
 
 	@Override

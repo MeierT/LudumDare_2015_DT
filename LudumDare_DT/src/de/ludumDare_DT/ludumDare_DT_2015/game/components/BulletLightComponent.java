@@ -31,6 +31,6 @@ public class BulletLightComponent extends LightComponent{
 	
 	@Override
 	public void reset() {
-		light.setActive(false);;
+		light.setActive(false);
 	}
 }
